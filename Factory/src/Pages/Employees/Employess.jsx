@@ -1,9 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Table from "../../Components/Table";
+import AddEmployee from "./AddEmployee";
+// import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 const EmployeesUrl = "http://localhost:4000/employees";
+
 const Employess = () => {
   const [employees, setEmployees] = useState([]);
+  const [addEmployee, setAddEmployee] = useState(false);
 
   const columns = [{ title: "full name", dataIndex: "full_name" }];
 
@@ -24,8 +28,9 @@ const Employess = () => {
   }, []);
   return (
     <div>
-      Employess
-      <Table columns={columns} source={employees} />
+      Employess <Table columns={columns} source={employees} />
+      <button onClick={() => setAddEmployee(!addEmployee)}>Add employee</button>
+      {addEmployee ? <AddEmployee /> : ""}
     </div>
   );
 };
