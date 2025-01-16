@@ -23,8 +23,12 @@ const DepartmentsDropdown = (props) => {
             target: { value: e.target.value, name: "department_id" },
           })
         }
+        value={""}
         name="department_id"
       >
+        <option value=" " disabled>
+          Select a department
+        </option>
         {departments.map((dep) => {
           return (
             <option value={dep._id} key={dep._id}>
