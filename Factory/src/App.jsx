@@ -1,3 +1,4 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Departments from "./Pages/Departments/Departments";
 import Employess from "./Pages/Employees/Employess";
@@ -5,10 +6,11 @@ import Employess from "./Pages/Employees/Employess";
 const App = () => {
   return (
     <>
-      <h1>Vite + React</h1>
-      <Employess />
-      <br />
-      <Departments />
+      <Routes>
+        <Route path="/" element="{}" />
+        <Route path="/Employees" element={<Employess />} />
+        <Route path="/Departments" element={<Departments />} />
+      </Routes>
     </>
   );
 };
