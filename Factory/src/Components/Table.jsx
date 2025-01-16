@@ -1,6 +1,7 @@
 import React from "react";
 
 const Table = (props) => {
+  const forienKey = ["id", "manager"];
   return (
     <table border="1">
       <thead>
@@ -29,7 +30,12 @@ const Table = (props) => {
                       width: `${100 / props.columns.length}%`,
                     }}
                   >
-                    {data[e.dataIndex]}
+                    {typeof data[e.dataIndex] === "string" &&
+                    !forienKey.includes(e.dataIndex) ? (
+                      <a href="">{data[e.dataIndex]}</a>
+                    ) : (
+                      data[e.dataIndex]
+                    )}
                   </td>
                 );
               })}

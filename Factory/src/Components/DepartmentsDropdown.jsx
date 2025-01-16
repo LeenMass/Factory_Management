@@ -18,7 +18,11 @@ const DepartmentsDropdown = (props) => {
     <div>
       Departments Dropdown
       <select
-        onChange={(e) => props.select(e.target.value)}
+        onChange={(e) =>
+          props.select({
+            target: { value: e.target.value, name: "department_id" },
+          })
+        }
         name="department_id"
       >
         {departments.map((dep) => {
