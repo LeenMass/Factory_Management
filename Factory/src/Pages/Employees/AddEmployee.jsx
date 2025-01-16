@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 const EmployeesUrl = "http://localhost:4000/employees";
 
 const AddEmployee = () => {
@@ -46,7 +47,7 @@ const AddEmployee = () => {
         placeholder="start_year"
         onChange={handleChange}
       />
-      <DepartmentsDropdown />
+      <DepartmentsDropdown select={handleChange} />
       <button onClick={saveEmployee}>Save</button>
     </div>
   );
