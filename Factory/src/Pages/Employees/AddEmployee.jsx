@@ -29,26 +29,31 @@ const AddEmployee = () => {
   return (
     <div>
       AddEmployee
-      <input
-        name="first_name"
-        type="text"
-        placeholder="enter employee's first_name"
-        onChange={handleChange}
-      />
-      <input
-        name="last_name"
-        type="text"
-        placeholder="enter employee's last_name"
-        onChange={handleChange}
-      />
-      <input
-        name="start_work_year"
-        type="number"
-        placeholder="start_year"
-        onChange={handleChange}
-      />
-      <DepartmentsDropdown select={handleChange} />
-      <button onClick={saveEmployee}>Save</button>
+      <form onSubmit={saveEmployee}>
+        <input
+          name="first_name"
+          type="text"
+          placeholder="enter employee's first_name"
+          onChange={handleChange}
+        />
+        <input
+          name="last_name"
+          type="text"
+          placeholder="enter employee's last_name"
+          onChange={handleChange}
+        />
+        <input
+          name="start_work_year"
+          type="number"
+          placeholder="start_year"
+          onChange={handleChange}
+        />
+        <DepartmentsDropdown
+          select={handleChange}
+          selected={newEmployee.department_id}
+        />
+        <button type="submit">Save Employee</button>
+      </form>
     </div>
   );
 };

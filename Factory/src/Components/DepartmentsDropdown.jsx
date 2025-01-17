@@ -5,7 +5,6 @@ const departmentUrl = "http://localhost:4000/departments";
 
 const DepartmentsDropdown = (props) => {
   const [departments, setDepartments] = useState([]);
-
   const getDepartments = async () => {
     const { data } = await axios.get(departmentUrl);
 
@@ -23,11 +22,11 @@ const DepartmentsDropdown = (props) => {
             target: { value: e.target.value, name: "department_id" },
           })
         }
-        value={""}
         name="department_id"
+        defaultValue={props.selected}
       >
-        <option value=" " disabled>
-          Select a department
+        <option value="" disabled>
+          select Department
         </option>
         {departments.map((dep) => {
           return (
