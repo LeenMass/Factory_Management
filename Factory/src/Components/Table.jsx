@@ -5,18 +5,20 @@ const Table = (props) => {
   return (
     <table border="1">
       <thead>
-        {props.columns.map((e) => {
-          return (
-            <th
-              key={e._id}
-              style={{
-                width: `${100 / props.columns.length}%`,
-              }}
-            >
-              {e.title}
-            </th>
-          );
-        })}
+        <tr>
+          {props.columns.map((e) => {
+            return (
+              <th
+                key={e._id}
+                style={{
+                  width: `${100 / props.columns.length}%`,
+                }}
+              >
+                {e.title}
+              </th>
+            );
+          })}
+        </tr>
       </thead>
       <tbody>
         {props.source.map((data, index) => {
