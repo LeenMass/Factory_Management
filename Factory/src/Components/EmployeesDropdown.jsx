@@ -25,7 +25,11 @@ const EmployeesDropdown = (props) => {
           })
         }
         name="manager"
+        defaultValue={props.selected}
       >
+        <option value="" disabled>
+          Select a manager
+        </option>
         {employees.map((emp) => {
           return (
             <option value={emp._id} key={emp._id}>
