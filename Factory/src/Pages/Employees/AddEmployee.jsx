@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
+import { useNavigate } from "react-router-dom";
 const EmployeesUrl = "http://localhost:4000/employees";
 
 const AddEmployee = () => {
@@ -10,35 +11,52 @@ const AddEmployee = () => {
     start_work_year: "",
     department_id: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewEmployee({ ...newEmployee, [name]: value });
   };
-  const saveEmployee = async () => {
+  const cancelBtn = (e) => {
+    e.preventDefault();
+    navigate("/Employees");
+  };
+  const saveEmployee = async (e) => {
+    e.preventDefault();
     try {
-      console.log(newEmployee);
-      const { data } = await axios.post(EmployeesUrl, newEmployee);
-      console.log(data);
-      return data;
+      await axios.post(EmployeesUrl, newEmployee);
+      alert(
+        `${newEmployee.first_name} ${newEmployee.last_name} added successfully`
+      );
+      setNewEmployee({
+        first_name: "",
+        last_name: "",
+        start_work_year: "",
+        department_id: "",
+      });
     } catch (error) {
-      console.error("Error saving employee:", error);
+      alert(
+        `Failed to add ${newEmployee.first_name} ${newEmployee.last_name},
+        ${error}
+      `
+      );
     }
   };
-
   return (
     <div>
-      AddEmployee
-      <form onSubmit={saveEmployee}>
+      Add Employee
+      <form>
         <input
           name="first_name"
           type="text"
+          value={newEmployee.first_name}
           placeholder="enter employee's first_name"
           onChange={handleChange}
         />
         <input
           name="last_name"
           type="text"
+          value={newEmployee.last_name}
           placeholder="enter employee's last_name"
           onChange={handleChange}
         />
@@ -47,12 +65,16 @@ const AddEmployee = () => {
           type="number"
           placeholder="start_year"
           onChange={handleChange}
+          value={newEmployee.start_work_year}
         />
         <DepartmentsDropdown
           select={handleChange}
           selected={newEmployee.department_id}
         />
-        <button type="submit">Save Employee</button>
+        <button onClick={saveEmployee} type="submit">
+          Save Employee
+        </button>
+        <button onClick={cancelBtn}>Cancel</button>
       </form>
     </div>
   );

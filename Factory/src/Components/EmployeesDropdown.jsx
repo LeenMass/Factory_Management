@@ -8,7 +8,7 @@ const EmployeesDropdown = (props) => {
 
   const getAllEmployees = async () => {
     const { data } = await axios.get(EmployeesUrl);
-
+    console.log(data);
     setEmployees(data);
   };
 
@@ -17,7 +17,7 @@ const EmployeesDropdown = (props) => {
   }, []);
   return (
     <div>
-      Departments Dropdown
+      Employees
       <select
         onChange={(e) =>
           props.select({
@@ -32,8 +32,8 @@ const EmployeesDropdown = (props) => {
         </option>
         {employees.map((emp) => {
           return (
-            <option value={emp._id} key={emp._id}>
-              {emp.first_name + " " + emp.last_name}
+            <option value={emp.id} key={emp.id}>
+              {emp.Full_Name}
             </option>
           );
         })}

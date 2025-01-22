@@ -2,30 +2,29 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Table from "../../Components/Table";
 
-import AddEmployee from "./AddEmployee";
+import { useNavigate } from "react-router-dom";
 const EmployeesUrl = "http://localhost:4000/employees";
 
 const Employess = () => {
   const [employees, setEmployees] = useState([]);
-  const [addEmployee, setAddEmployee] = useState(false);
+  const navegate = useNavigate();
 
   const columns = [
     { title: "Id", dataIndex: "id" },
-    { title: "full name", dataIndex: "full_name" },
-    { title: "start_work", dataIndex: "start_work_year" },
+    { title: "Full Name", dataIndex: "Full_Name" },
+    { title: "Department", dataIndex: "Department" },
   ];
 
   const getAllEmployees = async () => {
-    const { data } = await axios.get(EmployeesUrl);
-    const employeesData = data.map((emp) => {
-      return {
-        id: emp._id,
-        full_name: emp.first_name + " " + emp.last_name,
-        start_work_year: emp.start_work_year,
-      };
-    });
-
-    setEmployees(employeesData);
+    try {
+      const { data } = await axios.get(EmployeesUrl);
+      setEmployees(data);
+    } catch (error) {
+      alert(`Failed to fetch Data ,${error}`);
+    }
+  };
+  const NavigateToAddEmployee = () => {
+    navegate("/AddEmployee");
   };
 
   useEffect(() => {
@@ -33,9 +32,16 @@ const Employess = () => {
   }, []);
   return (
     <div>
-      Employess <Table columns={columns} source={employees} />
-      <button onClick={() => setAddEmployee(!addEmployee)}>Add employee</button>
-      {addEmployee ? <AddEmployee /> : ""}
+      Employess{" "}
+      <Table
+        columns={columns}
+        source={employees}
+        editE={"Employees"}
+        employee_id={"id"}
+        editDep={"EditDepartment"}
+      />
+      <br />
+      <button onClick={NavigateToAddEmployee}>New Employee</button>
     </div>
   );
 };
