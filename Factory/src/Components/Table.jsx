@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Table = (props) => {
   const forienKey = ["id", "manager"];
@@ -6,10 +7,10 @@ const Table = (props) => {
     <table border="1">
       <thead>
         <tr>
-          {props.columns.map((e) => {
+          {props.columns.map((e, index) => {
             return (
               <th
-                key={e._id}
+                key={index}
                 style={{
                   width: `${100 / props.columns.length}%`,
                 }}
@@ -23,18 +24,25 @@ const Table = (props) => {
       <tbody>
         {props.source.map((data, index) => {
           return (
-            <tr key={data._id}>
-              {props.columns.map((e) => {
+            <tr key={index}>
+              {props.columns.map((e, index) => {
                 return (
                   <td
-                    key={e._id}
+                    key={index}
                     style={{
                       width: `${100 / props.columns.length}%`,
                     }}
                   >
-                    {typeof data[e.dataIndex] === "string" &&
-                    !forienKey.includes(e.dataIndex) ? (
-                      <a href="">{data[e.dataIndex]}</a>
+                    {!forienKey.includes(e.dataIndex) ? (
+                      e.dataIndex === "Full_Name" ? (
+                        <a href={`/${props.editE}/${data[props.employee_id]}`}>
+                          {data[e.dataIndex]}
+                        </a>
+                      ) : (
+                        <a href={`/${props.editDep}/${data["department_id"]}`}>
+                          {data[e.dataIndex]}
+                        </a>
+                      )
                     ) : (
                       data[e.dataIndex]
                     )}
