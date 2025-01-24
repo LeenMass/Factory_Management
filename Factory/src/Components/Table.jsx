@@ -2,15 +2,45 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Table = (props) => {
-  const forienKey = ["id", "manager"];
+  const TableCells = (e, data) => {
+    switch (e.dataIndex) {
+      case props.case1:
+        if (Array.isArray(data[e.dataIndex])) {
+          return (
+            <ul>
+              {data[e.dataIndex].map((emp, index) => (
+                <li key={index}>{emp[props.case2]}</li>
+              ))}
+            </ul>
+          );
+        }
+
+      case props.case2:
+        return (
+          <Link to={`/${props.editE}/${data[props.employee_id]}`}>
+            {data[e.dataIndex]}
+          </Link>
+        );
+      case props.case3:
+        return (
+          <Link to={`/${props.editDep}/${data[props.department]}`}>
+            {data[e.dataIndex]}
+          </Link>
+        );
+
+      default:
+        return data[e.dataIndex];
+    }
+  };
+
   return (
     <table border="1">
       <thead>
         <tr>
-          {props.columns.map((e, index) => {
+          {props.columns.map((e) => {
             return (
               <th
-                key={index}
+                key={e.title}
                 style={{
                   width: `${100 / props.columns.length}%`,
                 }}
@@ -22,36 +52,20 @@ const Table = (props) => {
         </tr>
       </thead>
       <tbody>
-        {props.source.map((data, index) => {
-          return (
-            <tr key={index}>
-              {props.columns.map((e, index) => {
-                return (
-                  <td
-                    key={index}
-                    style={{
-                      width: `${100 / props.columns.length}%`,
-                    }}
-                  >
-                    {!forienKey.includes(e.dataIndex) ? (
-                      e.dataIndex === "Full_Name" ? (
-                        <a href={`/${props.editE}/${data[props.employee_id]}`}>
-                          {data[e.dataIndex]}
-                        </a>
-                      ) : (
-                        <a href={`/${props.editDep}/${data["department_id"]}`}>
-                          {data[e.dataIndex]}
-                        </a>
-                      )
-                    ) : (
-                      data[e.dataIndex]
-                    )}
-                  </td>
-                );
-              })}
-            </tr>
-          );
-        })}
+        {props.source.map((data) => (
+          <tr key={data.id}>
+            {props.columns.map((e) => (
+              <td
+                key={e.title}
+                style={{
+                  width: `${100 / props.columns.length}%`,
+                }}
+              >
+                {TableCells(e, data)}
+              </td>
+            ))}
+          </tr>
+        ))}
       </tbody>
     </table>
   );

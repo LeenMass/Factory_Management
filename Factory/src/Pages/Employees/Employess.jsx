@@ -38,7 +38,8 @@ const Employess = () => {
         source={employees}
         editE={"Employees"}
         employee_id={"id"}
-        editDep={"EditDepartment"}
+        department={"department_id"}
+        editDep={"Departments"}
       />
       <br />
       <button onClick={NavigateToAddEmployee}>New Employee</button>

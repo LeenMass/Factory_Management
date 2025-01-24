@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const EmployeesDropdown = (props) => {
+  console.log(props.selected);
   const EmployeesUrl = "http://localhost:4000/employees";
 
   const [employees, setEmployees] = useState([]);
@@ -25,7 +26,8 @@ const EmployeesDropdown = (props) => {
           })
         }
         name="manager"
-        defaultValue={props.selected}
+        value={props.selected}
+        selected
       >
         <option value="" disabled>
           Select a manager

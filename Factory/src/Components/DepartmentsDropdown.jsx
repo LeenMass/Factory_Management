@@ -23,7 +23,7 @@ const DepartmentsDropdown = (props) => {
           })
         }
         name="department_id"
-        value={props.selected}
+        defaultValue={props.selected}
         selected
       >
         <option value="" disabled>

@@ -20,6 +20,7 @@ const App = () => {
         <Route path="/Departments" element={<Departments />} />
         <Route path="/AddEmployee" element={<AddEmployee />} />
         <Route path="/Employees/:id" element={<Employee />}></Route>
+        <Route path="/Departments/:id" element={<EditDepartment />}></Route>
       </Routes>
     </>
   );
