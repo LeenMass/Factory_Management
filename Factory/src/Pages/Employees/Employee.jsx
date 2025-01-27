@@ -73,9 +73,7 @@ const Employee = () => {
             select={handleChange}
             selected={employeData.department_id}
           />
-          <button onClick={updateData} type="submit">
-            Update
-          </button>
+          <button onClick={updateData}>Update</button>
           <button onClick={() => setEdit(false)}>Cancel</button>
           <button onClick={deleteEmployee} type="button">
             Delete
