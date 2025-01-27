@@ -2,16 +2,22 @@ import React, { useEffect, useState } from "react";
 import AddDepartment from "./AddDepartment";
 import axios from "axios";
 import Table from "../../Components/Table";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const departmentUrl = "http://localhost:4000/departments";
 const EmployeesUrl = "http://localhost:4000/employees";
 
 const Departments = () => {
   const [departments, setDepartments] = useState([]);
+  const navigate = useNavigate();
+
+  const users = useSelector((state) => state.employees);
+  console.log(users);
   const columns = [
     { title: "Id", dataIndex: "id" },
     { title: "Department", dataIndex: "Department" },
-    { title: "Full Name", dataIndex: "Full_Name" },
+    { title: "Manager", dataIndex: "Full_Name" },
     { title: "Employees", dataIndex: "employess" },
   ];
   const getAllDepartments = async () => {
@@ -39,6 +45,10 @@ const Departments = () => {
       console.log(err);
     }
   };
+
+  const addDepartment = () => {
+    navigate("/AddDepartment");
+  };
   useEffect(() => {
     getDepartmentsData();
   }, []);
@@ -57,7 +67,7 @@ const Departments = () => {
         case2={"Full_Name"}
         case3={"Department"}
       />
-      <AddDepartment />
+      <button onClick={addDepartment}>Add Department</button>
     </div>
   );
 };

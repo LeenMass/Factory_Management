@@ -22,11 +22,23 @@ const EditDepartment = () => {
   const updateData = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put(`${DepartmentsUrl}/${id}`, departmen);
-      console.log(data);
-      return data;
+      await axios.put(`${DepartmentsUrl}/${id}`, departmen);
+      navigate("/Departments");
     } catch (error) {
-      alert(`Failed to updates the employee Data, Please try again."`);
+      alert(`Failed to update, Please try again."`);
+    }
+  };
+  const deleteData = async (e) => {
+    e.preventDefault();
+    const isConfirmed = window.confirm(
+      `Are you sure you want to delete ${departmen.name} Department ?`
+    );
+    if (!isConfirmed) return;
+    try {
+      await axios.delete(`${DepartmentsUrl}/${id}`);
+      navigate("/Departments");
+    } catch (err) {
+      alert(`Failed to delete This Department, Please try again."`);
     }
   };
   useEffect(() => {
@@ -50,6 +62,9 @@ const EditDepartment = () => {
         <button onClick={() => navigate("/Departments")}>Cancel</button>
         <button type="button" onClick={updateData}>
           Edit
+        </button>
+        <button type="button" onClick={deleteData}>
+          Delete Department
         </button>
       </form>
     </div>

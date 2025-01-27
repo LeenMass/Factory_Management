@@ -1,35 +1,21 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Table from "../../Components/Table";
 
 import { useNavigate } from "react-router-dom";
-const EmployeesUrl = "http://localhost:4000/employees";
+import { useSelector } from "react-redux";
 
 const Employess = () => {
-  const [employees, setEmployees] = useState([]);
   const navegate = useNavigate();
-
+  const employees = useSelector((state) => state.employees);
   const columns = [
-    { title: "Id", dataIndex: "id" },
     { title: "Full Name", dataIndex: "Full_Name" },
     { title: "Department", dataIndex: "Department" },
   ];
 
-  const getAllEmployees = async () => {
-    try {
-      const { data } = await axios.get(EmployeesUrl);
-      setEmployees(data);
-    } catch (error) {
-      alert(`Failed to fetch Data ,${error}`);
-    }
-  };
   const NavigateToAddEmployee = () => {
     navegate("/AddEmployee");
   };
 
-  useEffect(() => {
-    getAllEmployees();
-  }, []);
   return (
     <div>
       Employess{" "}
@@ -40,6 +26,8 @@ const Employess = () => {
         employee_id={"id"}
         department={"department_id"}
         editDep={"Departments"}
+        case2={"Full_Name"}
+        case3={"Department"}
       />
       <br />
       <button onClick={NavigateToAddEmployee}>New Employee</button>
