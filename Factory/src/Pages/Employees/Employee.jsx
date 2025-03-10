@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
+import { useSelector } from "react-redux";
 const EmployeesUrl = "http://localhost:4000/employees";
 
 const Employee = () => {
@@ -52,7 +53,8 @@ const Employee = () => {
       Employee
       <h3>{employee.first_name}</h3>
       <h2>{employee.last_name}</h2>
-      Department :<DepartmentsDropdown selected={employee.department_id} />
+      Department :
+      <DepartmentsDropdown selected={employee.department_id} />
       <button onClick={() => setEdit(!edit)}>Edit</button>
       {edit && (
         <form>

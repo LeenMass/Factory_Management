@@ -26,9 +26,7 @@ const DepartmentsDropdown = (props) => {
         defaultValue={props.selected}
         selected
       >
-        <option value="" disabled>
-          select Department
-        </option>
+        <option value="">select Department</option>
         {departments.map((dep) => {
           return (
             <option value={dep.id} key={dep.id}>
