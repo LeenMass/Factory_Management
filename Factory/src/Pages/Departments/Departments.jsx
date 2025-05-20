@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const departmentUrl = "http://localhost:4000/departments";
-const EmployeesUrl = "http://localhost:4000/employees";
 
 const Departments = () => {
   const [departments, setDepartments] = useState([]);

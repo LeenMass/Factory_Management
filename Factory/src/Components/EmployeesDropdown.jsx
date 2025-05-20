@@ -3,16 +3,24 @@ import React from "react";
 const EmployeesDropdown = (props) => {
   return (
     <div>
-      Employees
+      {props.choice}
       <select
-        onChange={(e) =>
+        onChange={(e) => {
+          const selectedValues = Array.from(
+            e.target.selectedOptions,
+            (option) => option.value
+          );
           props.select({
-            target: { value: e.target.value, name: "manager" },
-          })
-        }
-        name="manager"
-        value={props.selected}
-        selected
+            target: {
+              value: props.isMultiple ? selectedValues : selectedValues[0],
+
+              name: props.name,
+            },
+          });
+        }}
+        value={props.isMultiple ? props.selected || [] : props.selected || ""}
+        multiple={props.isMultiple}
+        name={props.name}
       >
         <option value="">{props.placeholder}</option>
         {props.data.map((emp) => {

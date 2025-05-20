@@ -11,8 +11,7 @@ const Employess = () => {
     const { name, value } = e.target;
     setSelectedEmp({ ...selectedEmp, [name]: value });
   };
-  console.log(selectedEmp);
-  const navegate = useNavigate();
+  const navigate = useNavigate();
   const employees = useSelector((state) => state.employees);
   const employessData =
     selectedEmp.department_id == "" || !selectedEmp.department_id
@@ -20,14 +19,14 @@ const Employess = () => {
       : employees.filter(
           (emp) => emp.department_id == selectedEmp.department_id
         );
-  console.log(employessData);
+
   const columns = [
     { title: "Full Name", dataIndex: "Full_Name" },
     { title: "Department", dataIndex: "Department" },
   ];
 
   const NavigateToAddEmployee = () => {
-    navegate("/AddEmployee");
+    navigate("/AddEmployee");
   };
 
   return (

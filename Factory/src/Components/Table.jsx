@@ -64,6 +64,15 @@ const Table = (props) => {
                 {TableCells(e, data)}
               </td>
             ))}
+            {props.edit ? (
+              <td style={{ display: "flex column" }}>
+                <Link to={`/${props.editData}/${data._id}`}>
+                  <i className="fas fa-edit"></i>
+                </Link>
+              </td>
+            ) : (
+              ""
+            )}
           </tr>
         ))}
       </tbody>

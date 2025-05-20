@@ -38,6 +38,8 @@ const AddDepartment = () => {
           select={handelSubmit}
           selected={data.manager}
           data={employees}
+          name="manager"
+          isMultiple={false}
         />
         <button type="submit" onClick={saveDepartment}>
           Save

@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
-import { useSelector } from "react-redux";
 const EmployeesUrl = "http://localhost:4000/employees";
 
 const Employee = () => {
@@ -23,7 +22,6 @@ const Employee = () => {
     e.preventDefault();
     try {
       const { data } = await axios.put(`${EmployeesUrl}/${id}`, employeData);
-      console.log(data);
       return data;
     } catch (error) {
       alert(`Failed to updates the employee Data, Please try again."`);
