@@ -26,7 +26,7 @@ const AddEmployee = () => {
     try {
       await axios.post(EmployeesUrl, newEmployee);
       alert(
-        `${newEmployee.first_name} ${newEmployee.last_name} added successfully`
+        `New Employee ${newEmployee.first_name} ${newEmployee.last_name}  has been added successfully.`
       );
       setNewEmployee({
         first_name: "",

@@ -16,6 +16,7 @@ const Shifts = () => {
       alert(`Failed to fetch Shifts ,${error}`);
     }
   };
+  console.log(shifts);
   useEffect(() => {
     getShifts();
   }, []);
@@ -35,6 +36,7 @@ const Shifts = () => {
         editData={"Shifts"}
         case1={"employees"}
         case2={"name"}
+        case8={"shift"}
       />
       <button onClick={() => navigate("/AddingShift")}>Add Shift</button>
     </div>

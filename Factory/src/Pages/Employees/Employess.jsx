@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../../Components/Table";
 
 import { useNavigate } from "react-router-dom";
@@ -19,16 +19,18 @@ const Employess = () => {
       : employees.filter(
           (emp) => emp.department_id == selectedEmp.department_id
         );
-
   const columns = [
-    { title: "Full Name", dataIndex: "Full_Name" },
+    { title: "Full Name", dataIndex: "name" },
     { title: "Department", dataIndex: "Department" },
+    { title: "Shifts", dataIndex: "shifts" },
   ];
 
   const NavigateToAddEmployee = () => {
     navigate("/AddEmployee");
   };
-
+  useEffect(() => {
+    useSelector((state) => state);
+  }, []);
   return (
     <div>
       Employess <DepartmentsDropdown select={Onchange} selected={""} />
@@ -39,8 +41,12 @@ const Employess = () => {
         employee_id={"id"}
         department={"department_id"}
         editDep={"Departments"}
-        case2={"Full_Name"}
+        case2={"name"}
         case3={"Department"}
+        case1={"shifts"}
+        case4={"date"}
+        case5={"starting_hour"}
+        case6={"ending_hour"}
       />
       <br />
       <button onClick={NavigateToAddEmployee}>New Employee</button>

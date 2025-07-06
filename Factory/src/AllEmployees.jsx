@@ -1,22 +1,20 @@
-import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-const EmployeesUrl = "http://localhost:4000/employees";
+import { getemployees } from "./Pages/Employees/utilsEmployees";
 
 const AllEmployees = () => {
   const dispatch = useDispatch();
 
-  const getemployees = async () => {
+  const LoadEmployees = async () => {
     try {
-      const { data: employees } = await axios.get(EmployeesUrl);
-
+      const { data: employees } = await getemployees();
       dispatch({ type: "LOAD", payload: employees });
     } catch (error) {
       alert(`Failed to fetch Data ,${error}`);
     }
   };
   useEffect(() => {
-    getemployees();
+    LoadEmployees();
   }, []);
 
   return <></>;
