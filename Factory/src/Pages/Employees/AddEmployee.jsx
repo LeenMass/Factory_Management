@@ -1,8 +1,7 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 import { useNavigate } from "react-router-dom";
-const EmployeesUrl = "http://localhost:4000/employees";
+import { addEmployee } from "./utilsEmployees";
 
 const AddEmployee = () => {
   const [newEmployee, setNewEmployee] = useState({
@@ -15,6 +14,12 @@ const AddEmployee = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === "first_Name" || name === "last_Name") {
+      const regex = /^[a-zA-Z\s]*$/;
+      if (!regex.test(value)) {
+        alert(`First name and last name must contain only letters and spaces`);
+      }
+    }
     setNewEmployee({ ...newEmployee, [name]: value });
   };
   const cancelBtn = (e) => {
@@ -24,7 +29,7 @@ const AddEmployee = () => {
   const saveEmployee = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(EmployeesUrl, newEmployee);
+      await addEmployee(newEmployee);
       alert(
         `New Employee ${newEmployee.first_name} ${newEmployee.last_name}  has been added successfully.`
       );
@@ -49,14 +54,12 @@ const AddEmployee = () => {
         <input
           name="first_name"
           type="text"
-          value={newEmployee.first_name}
           placeholder="enter employee's first_name"
           onChange={handleChange}
         />
         <input
           name="last_name"
           type="text"
-          value={newEmployee.last_name}
           placeholder="enter employee's last_name"
           onChange={handleChange}
         />
@@ -65,7 +68,6 @@ const AddEmployee = () => {
           type="number"
           placeholder="start_year"
           onChange={handleChange}
-          value={newEmployee.start_work_year}
         />
         <DepartmentsDropdown
           select={handleChange}

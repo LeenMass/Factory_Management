@@ -19,6 +19,13 @@ const getEmployeeById = async (id) => {
     }
 
 };
+const addEmployee = async (obj) => {
+    try {
+        return axios.post(EmployeesUrl, obj);
+    } catch (error) {
+        alert(`Failed to add Employee ,${error}`);
+    }
+};
 const UpdateEmployeeData = (id, obj) => {
     try {
         return axios.put(`${EmployeesUrl}/${id}`, obj);
@@ -36,4 +43,4 @@ const DeleteEmployee = async (id) => {
     }
 };
 
-export { getemployees, UpdateEmployeeData, DeleteEmployee, getEmployeeById }
+export { getemployees, UpdateEmployeeData, addEmployee, DeleteEmployee, getEmployeeById }

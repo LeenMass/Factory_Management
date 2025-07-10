@@ -45,7 +45,7 @@ const Table = (props) => {
             {console.log(data[e.dataIndex])}
             {data[e.dataIndex].map((item) => (
               <tr>
-                <td>{item}</td>
+                <td>{item.date}</td>
                 <td>{item.starting_hour}</td>
                 <td>{item.ending_hour}</td>
               </tr>

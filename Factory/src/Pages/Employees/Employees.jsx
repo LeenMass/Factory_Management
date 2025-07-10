@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Table from "../../Components/Table";
-
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 
-const Employess = () => {
+const Employees = () => {
   const [selectedEmp, setSelectedEmp] = useState("");
   const Onchange = (e) => {
     const { name, value } = e.target;
@@ -28,9 +27,7 @@ const Employess = () => {
   const NavigateToAddEmployee = () => {
     navigate("/AddEmployee");
   };
-  useEffect(() => {
-    useSelector((state) => state);
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div>
       Employess <DepartmentsDropdown select={Onchange} selected={""} />
@@ -54,4 +51,4 @@ const Employess = () => {
   );
 };
 
-export default Employess;
+export default Employees;
