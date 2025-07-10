@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DeleteEmployee, UpdateEmployeeData } from "./utilsEmployees";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
+import Table from "../../Components/Table";
 
 const EditEmployee = (props) => {
   const { id } = useParams();
@@ -9,7 +10,7 @@ const EditEmployee = (props) => {
   const [employeeUpdatedData, setNewData] = useState({
     first_name: props.data.first_name,
     last_name: props.data.last_name,
-    department: "",
+    department: props.data.department_id,
   });
 
   const handleChange = (e) => {
@@ -86,7 +87,7 @@ const EditEmployee = (props) => {
       <button onClick={deleteEmployee} type="button">
         Delete
       </button>
-      {/* <Table source={props.shifts} columns={columns} case7={"shifts"} /> */}
+      <Table source={props.data.shifts} columns={columns} case7={"shifts"} />
     </form>
   );
 };

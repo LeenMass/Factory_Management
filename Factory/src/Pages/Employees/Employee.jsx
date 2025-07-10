@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 import { getEmployeeById } from "./utilsEmployees";
 import EditEmployee from "./EditEmployee";
-import { getDepartmentById } from "../Departments/utilsDepartments";
 
 const Employee = () => {
   const { id } = useParams();
@@ -13,10 +11,9 @@ const Employee = () => {
   const getmployeeData = async () => {
     try {
       const { data } = await getEmployeeById(id);
-      const { data: department } = await getDepartmentById(data.department_id);
-      setEmployee({ ...data, department: department.name });
+      setEmployee(data);
     } catch (error) {
-      alert(`Failed to get employee Data, Please try again."`);
+      alert(`Failed to get Employee's Data, Please try again."`);
     }
   };
 
@@ -30,7 +27,7 @@ const Employee = () => {
         <>
           First Name:<h3>{employee?.first_name}</h3>
           Last Name:<h2>{employee?.last_name}</h2>
-          Department :<section>{employee.department}</section>
+          Department :<section>{employee.departmentName}</section>
           <button onClick={() => setEdit(!editEmployeeData)}>Edit</button>
         </>
       ) : (
