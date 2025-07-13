@@ -1,48 +1,82 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarAlt, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const Table = (props) => {
-  console.log(props);
-  const TableCells = (e, data) => {
+  const tableCells = (e, data) => {
     console.log(data);
-    switch (e.dataIndex) {
-      case props.case1:
+
+    switch (e.type) {
+      case "link-list":
         if (Array.isArray(data[e.dataIndex])) {
           return (
             <ul>
-              {data[e.dataIndex].map((emp, index) => (
+              {data[e.dataIndex].map((item, index) => (
                 <li key={index}>
-                  {console.log(emp.id)}
-                  {emp["name"] || emp["Full_Name"]
-                    ? emp[props.case2]
-                    : emp[props.case4] +
-                      "  " +
-                      emp[props.case5] +
-                      "-" +
-                      emp[props.case6]}
+                  <a href={`/${item.route}/${item.id}`}>{item.text}</a>
                 </li>
               ))}
             </ul>
           );
         }
 
-      case props.case2:
-        return (
-          <Link to={`/${props.editE}/${data[props.employee_id]}`}>
-            {data[e.dataIndex]}
-          </Link>
-        );
-      case props.case3:
-        return (
-          <Link to={`/${props.editDep}/${data[props.department]}`}>
-            {data[e.dataIndex]}
-          </Link>
-        );
+      case "link":
+        if (typeof data[e.dataIndex] === "object") {
+          return (
+            <Link to={`/${data[e.dataIndex].route}/${data[e.dataIndex].id}`}>
+              {data[e.dataIndex].text}
+            </Link>
+          );
+        }
 
-      case props.case7:
+      case "list-items":
+        if (Array.isArray(data[e.dataIndex])) {
+          return (
+            <ul
+              style={{
+                padding: 0,
+                margin: 0,
+                fontFamily: "sans-serif",
+              }}
+            >
+              {data[e.dataIndex].map((item, index) => {
+                const values = Object.values(item).slice(1);
+                return (
+                  <li
+                    key={index}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      padding: "8px 12px",
+                      borderBottom: "1px solid #ccc",
+                      gap: "6px",
+                      fontSize: "14px",
+                      color: "#333",
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faCalendarAlt}
+                      style={{ color: "#007bff" }}
+                    />
+                    <span>{values[0]}</span>
+
+                    <FontAwesomeIcon
+                      icon={faClock}
+                      style={{ color: "#28a745" }}
+                    />
+                    <span>
+                      {values[1]} - {values[2]}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          );
+        }
+        break;
+      case "table":
         return (
           <table border="2">
-            {console.log(data[e.dataIndex])}
             {data[e.dataIndex].map((item) => (
               <tr>
                 <td>{item.date}</td>
@@ -86,7 +120,7 @@ const Table = (props) => {
                   width: `${100 / props.columns.length}%`,
                 }}
               >
-                {TableCells(e, data)}
+                {tableCells(e, data)}
               </td>
             ))}
             {props.edit ? (

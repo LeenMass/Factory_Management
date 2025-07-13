@@ -1,35 +1,48 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EmployeesDropdown from "../../Components/EmployeesDropdown";
 import { useSelector } from "react-redux";
-
-const DepartmentsUrl = "http://localhost:4000/departments";
+import {
+  DeleteDepartment,
+  getDepartmentById,
+  updateDepartmentData,
+} from "./utilsDepartments";
 
 const EditDepartment = () => {
   const employees = useSelector((state) => state.employees);
 
-  const [departmen, setDepartmentData] = useState({});
+  const [department, setDepartmentData] = useState(null);
+  const [updateDepartment, setUpdateDepartmentData] = useState({
+    name: "",
+    manager: "",
+  });
+
   const [selectedEmployees, setSelectedEmployees] = useState([]);
 
   const { id } = useParams();
-
+  console.log(id);
   const navigate = useNavigate();
-  const nn = employees.filter((x) => x.department_id !== id);
+  const employeesList = employees.filter((x) => x.department_id !== id);
 
   const getDepartmentData = async () => {
-    const { data } = await axios.get(`${DepartmentsUrl}/${id}`);
+    const { data } = await getDepartmentById(id);
+    console.log(data);
     setDepartmentData(data);
+    setUpdateDepartmentData({
+      name: data?.name || "",
+      manager: data?.manager || "",
+    });
   };
   const departmentHandle = (e) => {
     const { name, value } = e.target;
 
-    setDepartmentData({ ...departmen, [name]: value });
+    setUpdateDepartmentData((prev) => ({ ...prev, [name]: value }));
   };
   const updateData = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${DepartmentsUrl}/${id}`, departmen);
+      await updateDepartmentData(id, updateDepartment);
       navigate("/Departments");
     } catch (error) {
       alert(`Failed to update, Please try again."`);
@@ -39,11 +52,11 @@ const EditDepartment = () => {
   const deleteData = async (e) => {
     e.preventDefault();
     const isConfirmed = window.confirm(
-      `Are you sure you want to delete ${departmen.name} Department ?`
+      `Are you sure you want to delete ${department.name} Department ?`
     );
     if (!isConfirmed) return;
     try {
-      await axios.delete(`${DepartmentsUrl}/${id}`);
+      await DeleteDepartment(id);
       navigate("/Departments");
     } catch (err) {
       alert(`Failed to delete This Department, Please try again."`);
@@ -63,7 +76,6 @@ const EditDepartment = () => {
       navigate("/Departments");
     } catch (error) {
       alert("Failed to assign employees. Please try again.");
-      console.error(error);
     }
   };
   useEffect(() => {
@@ -73,17 +85,17 @@ const EditDepartment = () => {
   return (
     <div>
       EditDepartment
-      <form>
+      <form onSubmit={updateData}>
         Department Name:{" "}
         <input
           name="name"
-          defaultValue={departmen.name}
+          value={updateDepartment.name || ""}
           onChange={departmentHandle}
         />
         <EmployeesDropdown
           choice={"Manager"}
           select={departmentHandle}
-          selected={departmen.manager}
+          selected={updateDepartment.manager || ""}
           data={employees}
           isMultiple={false}
           name={"manager"}
@@ -94,7 +106,7 @@ const EditDepartment = () => {
           Delete Department
         </button>{" "}
         <button onClick={() => navigate("/Departments")}>Cancel</button>
-        <button type="button" onClick={updateData}>
+        <button type="submit" onClick={updateData}>
           Edit
         </button>
       </form>{" "}
@@ -103,7 +115,7 @@ const EditDepartment = () => {
         choice={"Employees"}
         name={"Employees"}
         selected={selectedEmployees}
-        data={nn}
+        data={employeesList}
         isMultiple={true}
         placeholder={"Select A Employees"}
       />

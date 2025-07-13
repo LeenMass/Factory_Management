@@ -31,7 +31,7 @@ const Employee = () => {
           <button onClick={() => setEdit(!editEmployeeData)}>Edit</button>
         </>
       ) : (
-        <EditEmployee data={employee} />
+        <EditEmployee />
       )}
     </div>
   );
