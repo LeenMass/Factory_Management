@@ -3,7 +3,7 @@ import axios from "axios";
 
 const EmployeesUrl = "http://localhost:4000/employees";
 
-const getemployees = async () => {
+const getemployees = () => {
     try {
 
         return axios.get(EmployeesUrl);
@@ -11,7 +11,7 @@ const getemployees = async () => {
         alert(`Failed to fetch Data ,${error}`);
     }
 };
-const getEmployeeById = async (id) => {
+const getEmployeeById = (id) => {
     try {
         return axios.get(`${EmployeesUrl}/${id}`);
     } catch (error) {
@@ -19,22 +19,22 @@ const getEmployeeById = async (id) => {
     }
 
 };
-const addEmployee = async (obj) => {
+const addEmployee = (obj) => {
     try {
         return axios.post(EmployeesUrl, obj);
     } catch (error) {
         alert(`Failed to add Employee ,${error}`);
     }
 };
-const UpdateEmployeeData = (id, obj) => {
+const UpdateEmployeeData = (id, employeeObj) => {
     try {
-        return axios.put(`${EmployeesUrl}/${id}`, obj);
+        return axios.put(`${EmployeesUrl}/${id}`, employeeObj);
 
     } catch (error) {
-        alert(`Failed to updates the employee Data, Please try again."`);
+        alert(`Failed to update the employee Data, Please try again."`);
     }
 };
-const DeleteEmployee = async (id) => {
+const DeleteEmployee =  (id) => {
     try {
         return axios.delete(`${EmployeesUrl}/${id}`);
 

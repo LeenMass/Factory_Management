@@ -1,28 +1,33 @@
-import React, { useEffect, useState } from "react";
-import AddDepartment from "./AddDepartment";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import Table from "../../Components/Table";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-const departmentUrl = "http://localhost:4000/departments";
+import { getDepartments } from "./utilsDepartments";
 
 const Departments = () => {
   const [departments, setDepartments] = useState([]);
   const navigate = useNavigate();
 
   const columns = [
-    { title: "Id", dataIndex: "id" },
-    { title: "Department", dataIndex: "Department" },
-    { title: "Manager", dataIndex: "Full_Name" },
-    { title: "Employees", dataIndex: "Employees" },
+    { title: "Department", dataIndex: "Department", type: "link" },
+    { title: "Manager", dataIndex: "Manager" },
+    { title: "Employees", dataIndex: "Employees", type: "link-list" },
   ];
   const getAllDepartments = async () => {
     try {
-      const { data } = await axios.get(departmentUrl);
-      setDepartments(data);
+      const { data } = await getDepartments();
+      const formatedData = data.map((dep) => ({
+        id: dep.id,
+        Manager: dep.Manager,
+        Department: { text: dep.Department, route: "Departments", id: dep.id },
+        Employees: dep.Employees.map((emp) => ({
+          ...emp,
+          text: emp.name,
+          route: "editEmployee",
+        })),
+      }));
+      setDepartments(formatedData);
     } catch (err) {
-      console.log(err);
+      alert(`failed to fetch departments`);
     }
   };
   console.log(departments);
@@ -39,13 +44,10 @@ const Departments = () => {
       <Table
         source={departments}
         columns={columns}
-        editE={"Employees"}
+        editData={"editEmployee"}
         editDep={"Departments"}
-        employee_id={"Manager"}
-        department={"id"}
         case1={"Employees"}
-        case2={"Full_Name"}
-        case3={"Department"}
+        case2={"name"}
       />
       <button onClick={addDepartment}>Add Department</button>
     </div>

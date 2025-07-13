@@ -1,32 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DeleteEmployee, UpdateEmployeeData } from "./utilsEmployees";
+import {
+  DeleteEmployee,
+  getEmployeeById,
+  UpdateEmployeeData,
+} from "./utilsEmployees";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 import Table from "../../Components/Table";
 
-const EditEmployee = (props) => {
+const EditEmployee = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
+  const [employee, setEmployee] = useState(null);
+
   const [employeeUpdatedData, setNewData] = useState({
-    first_name: props.data.first_name,
-    last_name: props.data.last_name,
-    department: props.data.department_id,
+    first_name: "",
+    last_name: "",
+    depId: "",
   });
+  const fetchEmployeeData = async () => {
+    const { data } = await getEmployeeById(id);
+    console.log(data);
+    setEmployee(data);
+    setNewData({
+      first_name: data.first_name || "",
+      last_name: data.last_name || "",
+      depId: data.depId || "",
+    });
+  };
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "first_Name" || name === "last_Name") {
+    if (name === "first_name" || name === "last_name") {
       const regex = /^[a-zA-Z\s]*$/;
       if (!regex.test(value)) {
         alert(`First name and last name must contain only letters and spaces`);
       }
     }
-    setNewData({ ...employeeUpdatedData, [name]: value });
+    setNewData((prev) => ({ ...prev, [name]: value }));
   };
 
   const updateData = async (e) => {
     e.preventDefault();
     try {
+      console.log(employeeUpdatedData);
       await UpdateEmployeeData(id, employeeUpdatedData);
       alert(
         `${employeeUpdatedData.first_name} ${employeeUpdatedData.last_name} Details has been updated.`
@@ -42,7 +59,7 @@ const EditEmployee = (props) => {
   const deleteEmployee = async (e) => {
     e.preventDefault();
     const isConfirmed = window.confirm(
-      `Are you sure you want to delete ${props.first_name} ${props.last_name}?`
+      `Are you sure you want to delete ${employee.first_name} ${employee.last_name}?`
     );
     if (!isConfirmed) return;
     try {
@@ -62,32 +79,34 @@ const EditEmployee = (props) => {
     { title: "starting_hour", dataIndex: "starting_hour" },
     { title: "ending_hour", dataIndex: "ending_hour" },
   ];
-
+  useEffect(() => {
+    fetchEmployeeData();
+  }, [id]);
   return (
-    <form>
+    <form onSubmit={updateData}>
       First Name:{" "}
       <input
         name="first_name"
-        defaultValue={employeeUpdatedData.first_name}
+        value={employeeUpdatedData.first_name || ""}
         onChange={handleChange}
       />
       Last Name:{" "}
       <input
         name="last_name"
-        defaultValue={employeeUpdatedData.last_name}
+        value={employeeUpdatedData.last_name || ""}
         onChange={handleChange}
       />
       Department :
       <DepartmentsDropdown
         select={handleChange}
-        selected={employeeUpdatedData.department}
+        selected={employeeUpdatedData.depId || ""}
       />
-      <button onClick={updateData}>Update</button>
+      <button type="submit">Update</button>
       <button onClick={() => setEdit(false)}>Cancel</button>
       <button onClick={deleteEmployee} type="button">
         Delete
       </button>
-      <Table source={props.data.shifts} columns={columns} case7={"shifts"} />
+      {/* <Table source={props.data.shifts} columns={columns} case7={"shifts"} /> */}
     </form>
   );
 };

@@ -11,6 +11,7 @@ import Shifts from "./Pages/Shifts/Shifts";
 import AddingShift from "./Pages/Shifts/AddingShift";
 import EditingShift from "./Pages/Shifts/EditingShift";
 import NavBar from "./Components/NavBar";
+import EditEmployee from "./Pages/Employees/EditEmployee";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/Departments" element={<Departments />} />
         <Route path="/AddEmployee" element={<AddEmployee />} />
         <Route path="/Employees/:id" element={<Employee />}></Route>
+        <Route path="/editEmployee/:id" element={<EditEmployee />}></Route>
         <Route path="/Departments/:id" element={<EditDepartment />}></Route>
         <Route path="/AddDepartment" element={<AddDepartment />}></Route>
         <Route path="/Shifts" element={<Shifts />}></Route>
