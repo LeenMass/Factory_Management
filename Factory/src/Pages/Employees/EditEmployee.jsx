@@ -15,16 +15,18 @@ const EditEmployee = () => {
   const [employeeUpdatedData, setNewData] = useState({
     first_name: "",
     last_name: "",
-    depId: "",
+    department_id: "",
   });
+
   const fetchEmployeeData = async () => {
     const { data } = await getEmployeeById(id);
-    console.log(data);
+    console.log("Employee data:", data);
     setEmployee(data);
+    console.log(data.shifts);
     setNewData({
       first_name: data.first_name || "",
       last_name: data.last_name || "",
-      depId: data.depId || "",
+      department_id: data.department_id || "",
     });
   };
   const navigate = useNavigate();
@@ -55,7 +57,6 @@ const EditEmployee = () => {
       );
     }
   };
-
   const deleteEmployee = async (e) => {
     e.preventDefault();
     const isConfirmed = window.confirm(
@@ -99,14 +100,18 @@ const EditEmployee = () => {
       Department :
       <DepartmentsDropdown
         select={handleChange}
-        selected={employeeUpdatedData.depId || ""}
+        selected={employeeUpdatedData.department_id || ""}
       />
       <button type="submit">Update</button>
       <button onClick={() => setEdit(false)}>Cancel</button>
       <button onClick={deleteEmployee} type="button">
         Delete
       </button>
-      {/* <Table source={props.data.shifts} columns={columns} case7={"shifts"} /> */}
+      {employee?.shifts?.length > 0 ? (
+        <Table source={employee.shifts} columns={columns} />
+      ) : (
+        <p>No shifts assigned for this employee</p>
+      )}
     </form>
   );
 };

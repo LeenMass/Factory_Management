@@ -30,7 +30,6 @@ const Departments = () => {
       alert(`failed to fetch departments`);
     }
   };
-  console.log(departments);
   const addDepartment = () => {
     navigate("/AddDepartment");
   };
@@ -41,14 +40,7 @@ const Departments = () => {
   return (
     <div>
       Departments
-      <Table
-        source={departments}
-        columns={columns}
-        editData={"editEmployee"}
-        editDep={"Departments"}
-        case1={"Employees"}
-        case2={"name"}
-      />
+      <Table source={departments} columns={columns} />
       <button onClick={addDepartment}>Add Department</button>
     </div>
   );

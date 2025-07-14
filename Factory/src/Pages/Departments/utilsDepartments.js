@@ -18,7 +18,7 @@ const getDepartmentById = (id) => {
 };
 const updateDepartmentData = (id, departmentObj) => {
     try {
-        return axios.post(`${departmentsUrl}/${id}`, departmentObj);
+        return axios.put(`${departmentsUrl}/${id}`, departmentObj);
     } catch (error) {
         alert(`Failed to update the department Data, Please try again."`);
     }

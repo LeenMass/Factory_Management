@@ -6,7 +6,6 @@ import AddEmployee from "./Pages/Employees/AddEmployee";
 import EditDepartment from "./Pages/Departments/EditDepartment";
 import Employee from "./Pages/Employees/Employee";
 import AddDepartment from "./Pages/Departments/AddDepartment";
-import AllEmployees from "./AllEmployees";
 import Shifts from "./Pages/Shifts/Shifts";
 import AddingShift from "./Pages/Shifts/AddingShift";
 import EditingShift from "./Pages/Shifts/EditingShift";
@@ -16,7 +15,6 @@ import EditEmployee from "./Pages/Employees/EditEmployee";
 const App = () => {
   return (
     <>
-      <AllEmployees />
       <NavBar />
       <Routes>
         <Route path="/" element="{}" />
