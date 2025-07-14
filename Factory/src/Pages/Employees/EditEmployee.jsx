@@ -11,25 +11,28 @@ import Table from "../../Components/Table";
 const EditEmployee = () => {
   const { id } = useParams();
   const [employee, setEmployee] = useState(null);
-
   const [employeeUpdatedData, setNewData] = useState({
     first_name: "",
     last_name: "",
     department_id: "",
   });
+  const navigate = useNavigate();
+
+  const columns = [
+    { title: "Date", dataIndex: "date" },
+    { title: "Starting_hour", dataIndex: "starting_hour" },
+    { title: "Ending_hour", dataIndex: "ending_hour" },
+  ];
 
   const fetchEmployeeData = async () => {
     const { data } = await getEmployeeById(id);
-    console.log("Employee data:", data);
     setEmployee(data);
-    console.log(data.shifts);
     setNewData({
       first_name: data.first_name || "",
       last_name: data.last_name || "",
       department_id: data.department_id || "",
     });
   };
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,6 +60,7 @@ const EditEmployee = () => {
       );
     }
   };
+
   const deleteEmployee = async (e) => {
     e.preventDefault();
     const isConfirmed = window.confirm(
@@ -75,14 +79,11 @@ const EditEmployee = () => {
       );
     }
   };
-  const columns = [
-    { title: "Date", dataIndex: "date" },
-    { title: "starting_hour", dataIndex: "starting_hour" },
-    { title: "ending_hour", dataIndex: "ending_hour" },
-  ];
+
   useEffect(() => {
     fetchEmployeeData();
   }, [id]);
+
   return (
     <form onSubmit={updateData}>
       First Name:{" "}
@@ -102,16 +103,36 @@ const EditEmployee = () => {
         select={handleChange}
         selected={employeeUpdatedData.department_id || ""}
       />
-      <button type="submit">Update</button>
-      <button onClick={() => setEdit(false)}>Cancel</button>
-      <button onClick={deleteEmployee} type="button">
-        Delete
-      </button>
-      {employee?.shifts?.length > 0 ? (
-        <Table source={employee.shifts} columns={columns} />
-      ) : (
-        <p>No shifts assigned for this employee</p>
-      )}
+      <div style={{ marginTop: "30px" }}>
+        {" "}
+        <button
+          type="submit"
+          style={{ marginRight: "30px", border: "2px solid black" }}
+        >
+          {" "}
+          Update
+        </button>
+        <button
+          onClick={deleteEmployee}
+          style={{ marginRight: "30px", border: "2px solid black" }}
+        >
+          Delete Employee
+        </button>
+        <button
+          onClick={() => navigate("/Employees")}
+          style={{ marginRight: "30px", border: "2px solid black" }}
+        >
+          Cancel
+        </button>
+      </div>
+      <div style={{ marginTop: "30px" }}>
+        {" "}
+        {employee?.shifts?.length > 0 ? (
+          <Table source={employee.shifts} columns={columns} />
+        ) : (
+          <p>No shifts assigned for this employee</p>
+        )}
+      </div>
     </form>
   );
 };

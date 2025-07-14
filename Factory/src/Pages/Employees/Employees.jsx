@@ -7,12 +7,19 @@ import { getemployees } from "./utilsEmployees";
 const Employees = () => {
   const [selectedEmp, setSelectedEmp] = useState("");
   const [employees, setEmployees] = useState([]);
+  const navigate = useNavigate();
 
-  const Onchange = (e) => {
+  const columns = [
+    { title: "Full Name", dataIndex: "employee", type: "link" },
+    { title: "Department", dataIndex: "Department", type: "link" },
+    { title: "Shifts", dataIndex: "shifts", type: "list-items" },
+  ];
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setSelectedEmp({ ...selectedEmp, [name]: value });
   };
-  const navigate = useNavigate();
+
   const getAllEmployees = async () => {
     const { data } = await getemployees();
     const formatedEmployeesData = data.map((employee) => ({
@@ -31,28 +38,26 @@ const Employees = () => {
     }));
     setEmployees(formatedEmployeesData);
   };
-  const employessData =
+
+  const employeesData =
     selectedEmp.department_id == "" || !selectedEmp.department_id
       ? employees
       : employees.filter(
           (emp) => emp.department_id == selectedEmp.department_id
         );
-  const columns = [
-    { title: "Full Name", dataIndex: "employee", type: "link" },
-    { title: "Department", dataIndex: "Department", type: "link" },
-    { title: "Shifts", dataIndex: "shifts", type: "list-items" },
-  ];
 
   const NavigateToAddEmployee = () => {
     navigate("/AddEmployee");
   };
+
   useEffect(() => {
     getAllEmployees();
   }, []);
+
   return (
     <div>
-      Employess <DepartmentsDropdown select={Onchange} selected={""} />
-      <Table columns={columns} source={employessData} />
+      Employess <DepartmentsDropdown select={handleChange} selected={""} />
+      <Table columns={columns} source={employeesData} />
       <br />
       <button onClick={NavigateToAddEmployee}>New Employee</button>
     </div>
