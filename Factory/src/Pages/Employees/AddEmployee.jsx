@@ -14,7 +14,7 @@ const AddEmployee = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "first_Name" || name === "last_Name") {
+    if (name === "first_name" || name === "last_name") {
       const regex = /^[a-zA-Z\s]*$/;
       if (!regex.test(value)) {
         alert(`First name and last name must contain only letters and spaces`);
@@ -22,10 +22,12 @@ const AddEmployee = () => {
     }
     setNewEmployee({ ...newEmployee, [name]: value });
   };
+
   const cancelBtn = (e) => {
     e.preventDefault();
     navigate("/Employees");
   };
+
   const saveEmployee = async (e) => {
     e.preventDefault();
     try {
@@ -39,6 +41,7 @@ const AddEmployee = () => {
         start_work_year: "",
         department_id: "",
       });
+      navigate("/Employees");
     } catch (error) {
       alert(
         `Failed to add ${newEmployee.first_name} ${newEmployee.last_name},
@@ -54,19 +57,19 @@ const AddEmployee = () => {
         <input
           name="first_name"
           type="text"
-          placeholder="enter employee's first_name"
+          placeholder="enter employee's first name"
           onChange={handleChange}
         />
         <input
           name="last_name"
           type="text"
-          placeholder="enter employee's last_name"
+          placeholder="enter employee's last name"
           onChange={handleChange}
         />
         <input
           name="start_work_year"
           type="number"
-          placeholder="start_year"
+          placeholder="start work year"
           onChange={handleChange}
         />
         <DepartmentsDropdown

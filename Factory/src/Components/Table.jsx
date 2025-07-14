@@ -4,8 +4,6 @@ import { faCalendarAlt, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const Table = (props) => {
   const tableCells = (e, data) => {
-    console.log(data);
-
     switch (e.type) {
       case "link-list":
         if (Array.isArray(data[e.dataIndex])) {
@@ -19,7 +17,7 @@ const Table = (props) => {
             </ul>
           );
         }
-
+        break;
       case "link":
         if (typeof data[e.dataIndex] === "object") {
           return (
@@ -28,6 +26,7 @@ const Table = (props) => {
             </Link>
           );
         }
+        break;
 
       case "list-items":
         if (Array.isArray(data[e.dataIndex])) {
@@ -84,10 +83,10 @@ const Table = (props) => {
     <table border="1">
       <thead>
         <tr>
-          {props.columns.map((e) => {
+          {props.columns.map((e, index) => {
             return (
               <th
-                key={e.title}
+                key={index}
                 style={{
                   width: `${100 / props.columns.length}%`,
                 }}
@@ -99,8 +98,8 @@ const Table = (props) => {
         </tr>
       </thead>
       <tbody>
-        {props.source.map((data) => (
-          <tr key={data.id}>
+        {props.source.map((data, index) => (
+          <tr key={index}>
             {props.columns.map((e) => (
               <td
                 key={e.title}
