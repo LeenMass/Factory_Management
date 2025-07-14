@@ -74,18 +74,6 @@ const Table = (props) => {
           );
         }
         break;
-      case "table":
-        return (
-          <table border="2">
-            {data[e.dataIndex].map((item) => (
-              <tr>
-                <td>{item.date}</td>
-                <td>{item.starting_hour}</td>
-                <td>{item.ending_hour}</td>
-              </tr>
-            ))}
-          </table>
-        );
 
       default:
         return data[e.dataIndex];

@@ -2,43 +2,48 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EmployeesDropdown from "../../Components/EmployeesDropdown";
-import { useSelector } from "react-redux";
 import {
   DeleteDepartment,
   getDepartmentById,
   updateDepartmentData,
 } from "./utilsDepartments";
+import { getemployees } from "../Employees/utilsEmployees";
 
 const EditDepartment = () => {
-  const employees = useSelector((state) => state.employees);
-
   const [department, setDepartmentData] = useState(null);
   const [updateDepartment, setUpdateDepartmentData] = useState({
     name: "",
     manager: "",
   });
-
+  const [employeesList, setEmployeesList] = useState([]);
+  const [employeesLisWihoutFiltert, setEmployeesListWihoutFiltert] = useState(
+    []
+  );
   const [selectedEmployees, setSelectedEmployees] = useState([]);
 
   const { id } = useParams();
-  console.log(id);
   const navigate = useNavigate();
-  const employeesList = employees.filter((x) => x.department_id !== id);
+
+  const getEmployeesList = async () => {
+    const { data } = await getemployees();
+    setEmployeesListWihoutFiltert(data);
+    setEmployeesList(data.filter((x) => x.department_id !== id));
+  };
 
   const getDepartmentData = async () => {
     const { data } = await getDepartmentById(id);
-    console.log(data);
     setDepartmentData(data);
     setUpdateDepartmentData({
       name: data?.name || "",
       manager: data?.manager || "",
     });
   };
+
   const departmentHandle = (e) => {
     const { name, value } = e.target;
-
     setUpdateDepartmentData((prev) => ({ ...prev, [name]: value }));
   };
+
   const updateData = async (e) => {
     e.preventDefault();
     try {
@@ -62,6 +67,7 @@ const EditDepartment = () => {
       alert(`Failed to delete This Department, Please try again."`);
     }
   };
+
   const assignEmployeesToDepartment = async () => {
     try {
       console.log(selectedEmployees);
@@ -78,9 +84,14 @@ const EditDepartment = () => {
       alert("Failed to assign employees. Please try again.");
     }
   };
+
   useEffect(() => {
     getDepartmentData();
   }, [id]);
+
+  useEffect(() => {
+    getEmployeesList();
+  }, []);
 
   return (
     <div>
@@ -96,7 +107,7 @@ const EditDepartment = () => {
           choice={"Manager"}
           select={departmentHandle}
           selected={updateDepartment.manager || ""}
-          data={employees}
+          data={employeesLisWihoutFiltert}
           isMultiple={false}
           name={"manager"}
           placeholder={"Select A Manager"}

@@ -1,24 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EmployeesDropdown from "../../Components/EmployeesDropdown";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { addDepartment } from "./utilsDepartments";
+import { getemployees } from "../Employees/utilsEmployees";
 
 const AddDepartment = () => {
-  const [employeeData, setEmployeeData] = useState({ name: "", manager: "" });
+  const [departmentData, setDepartmentData] = useState({
+    name: "",
+    manager: "",
+  });
+  const [employeesList, setEmployeesList] = useState([]);
+
   const navigate = useNavigate();
-  const employees = useSelector((state) => state.employees);
+
+  const getEmployeesList = async () => {
+    const employees = await getemployees();
+    setEmployeesList(employees);
+  };
 
   const handelSubmit = (e) => {
     const { name, value } = e.target;
-    setEmployeeData({ ...employeeData, [name]: value });
+    setDepartmentData({ ...departmentData, [name]: value });
   };
 
   const saveDepartment = async (e) => {
     e.preventDefault();
     try {
-      await addDepartment(departmentUrl, employeeData);
-      alert(`${data.name} Department added successfully`);
+      await addDepartment(departmentUrl, departmentData);
+      alert(`${departmentData.namw} Department added successfully`);
     } catch (error) {
       console.error("Failed to add Department", error);
     }
@@ -28,16 +37,19 @@ const AddDepartment = () => {
     e.preventDefault();
     navigate("/Departments");
   };
+  useEffect(() => {
+    getEmployeesList();
+  }, []);
   return (
     <div>
       <form>
-        <section>Add Ne</section>
+        <section>Add New Department</section>
         Department Name:
         <input type="text" name="name" onChange={handelSubmit} />
         <EmployeesDropdown
           select={handelSubmit}
-          selected={data.manager}
-          data={employees}
+          selected={departmentData.manager}
+          data={employeesList}
           name="manager"
           isMultiple={false}
         />

@@ -19,10 +19,10 @@ const DepartmentsDropdown = (props) => {
       <select
         onChange={(e) =>
           props.select({
-            target: { value: e.target.value, name: "depId" },
+            target: { value: e.target.value, name: "department_id" },
           })
         }
-        name="depId"
+        name="department_id"
         value={props.selected}
       >
         <option value="">select Department</option>
