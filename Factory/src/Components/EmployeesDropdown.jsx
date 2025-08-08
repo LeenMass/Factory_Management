@@ -1,5 +1,3 @@
-import React from "react";
-
 const EmployeesDropdown = (props) => {
   return (
     <div>
@@ -13,7 +11,6 @@ const EmployeesDropdown = (props) => {
           props.select({
             target: {
               value: props.isMultiple ? selectedValues : selectedValues[0],
-
               name: props.name,
             },
           });

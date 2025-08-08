@@ -1,0 +1,27 @@
+import axios from "axios";
+const shiftsUrl = "http://localhost:4000/shifts";
+
+const getShifts = () => {
+    try {
+        return axios.get(shiftsUrl);
+
+    } catch (error) {
+        alert(`Failed to fetch Shifts ,${error}`);
+    }
+};
+const addNweShift = (shiftObj) => {
+    try {
+        return axios.post(shiftsUrl, shiftObj);
+    } catch (error) {
+        alert(`Failed to add Shift ,${error}`);
+    }
+};
+const UpdateShiftDetails = (id, shiftObj) => {
+    try {
+        return axios.put(`${shiftsUrl}/${id}`, shiftObj);
+
+    } catch (error) {
+        alert(`Failed to update the shift Details, Please try again."`);
+    }
+};
+export { getShifts, UpdateShiftDetails, addNweShift }

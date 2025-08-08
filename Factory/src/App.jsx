@@ -4,7 +4,6 @@ import Departments from "./Pages/Departments/Departments";
 import Employees from "./Pages/Employees/Employees";
 import AddEmployee from "./Pages/Employees/AddEmployee";
 import EditDepartment from "./Pages/Departments/EditDepartment";
-import Employee from "./Pages/Employees/Employee";
 import AddDepartment from "./Pages/Departments/AddDepartment";
 import Shifts from "./Pages/Shifts/Shifts";
 import AddingShift from "./Pages/Shifts/AddingShift";
@@ -21,7 +20,6 @@ const App = () => {
         <Route path="/Employees" element={<Employees />} />
         <Route path="/Departments" element={<Departments />} />
         <Route path="/AddEmployee" element={<AddEmployee />} />
-        <Route path="/Employees/:id" element={<Employee />}></Route>
         <Route path="/editEmployee/:id" element={<EditEmployee />}></Route>
         <Route path="/Departments/:id" element={<EditDepartment />}></Route>
         <Route path="/AddDepartment" element={<AddDepartment />}></Route>

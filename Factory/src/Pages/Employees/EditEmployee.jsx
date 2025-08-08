@@ -48,7 +48,6 @@ const EditEmployee = () => {
   const updateData = async (e) => {
     e.preventDefault();
     try {
-      console.log(employeeUpdatedData);
       await UpdateEmployeeData(id, employeeUpdatedData);
       alert(
         `${employeeUpdatedData.first_name} ${employeeUpdatedData.last_name} Details has been updated.`

@@ -57,7 +57,7 @@ const Employees = () => {
   return (
     <div>
       Employess <DepartmentsDropdown select={handleChange} selected={""} />
-      <Table columns={columns} source={employeesData} />
+      <Table columns={columns} source={employeesData} op1={"case1"} />
       <br />
       <button onClick={NavigateToAddEmployee}>New Employee</button>
     </div>

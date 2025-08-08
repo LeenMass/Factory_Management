@@ -36,38 +36,48 @@ const Table = (props) => {
                 padding: 0,
                 margin: 0,
                 fontFamily: "sans-serif",
+                textAlign: "center",
               }}
             >
               {data[e.dataIndex].map((item, index) => {
                 const values = Object.values(item).slice(1);
-                return (
-                  <li
-                    key={index}
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      padding: "8px 12px",
-                      borderBottom: "1px solid #ccc",
-                      gap: "6px",
-                      fontSize: "14px",
-                      color: "#333",
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={faCalendarAlt}
-                      style={{ color: "#007bff" }}
-                    />
-                    <span>{values[0]}</span>
 
-                    <FontAwesomeIcon
-                      icon={faClock}
-                      style={{ color: "#28a745" }}
-                    />
-                    <span>
-                      {values[1]} - {values[2]}
-                    </span>
-                  </li>
-                );
+                if (props.op1 === "case1") {
+                  return (
+                    <li
+                      key={index}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        padding: "8px 12px",
+                        borderBottom: "1px solid #ccc",
+                        gap: "6px",
+                        fontSize: "14px",
+                        color: "#333",
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faCalendarAlt}
+                        style={{ color: "#007bff" }}
+                      />
+                      <span>{values[0]}</span>
+
+                      <FontAwesomeIcon
+                        icon={faClock}
+                        style={{ color: "#28a745" }}
+                      />
+                      <span>
+                        {values[1]} - {values[2]}
+                      </span>
+                    </li>
+                  );
+                } else {
+                  return (
+                    <li style={{ textAlign: "center" }}>
+                      <span>{values}</span>
+                    </li>
+                  );
+                }
               })}
             </ul>
           );
