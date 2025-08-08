@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "../../Components/Table";
-import axios from "axios";
-const shiftsUrl = "http://localhost:4000/shifts";
+import { getShifts } from "./utilsShifts";
 
 const Shifts = () => {
   const navigate = useNavigate();
   const [shifts, setShifts] = useState([]);
 
-  const getShifts = async () => {
+  const columns = [
+    { title: "Date", dataIndex: "date" },
+    { title: "starting_hour", dataIndex: "starting_hour" },
+    { title: "ending_hour", dataIndex: "ending_hour" },
+    { title: "employees", dataIndex: "employees", type: "list-items" },
+  ];
+  const getAllShifts = async () => {
     try {
-      const { data } = await axios.get(shiftsUrl);
+      const { data } = await getShifts();
+
       setShifts(data);
     } catch (error) {
       alert(`Failed to fetch Shifts ,${error}`);
     }
   };
-  console.log(shifts);
+
   useEffect(() => {
-    getShifts();
+    getAllShifts();
   }, []);
-  const columns = [
-    { title: "Date", dataIndex: "date" },
-    { title: "starting_hour", dataIndex: "starting_hour" },
-    { title: "ending_hour", dataIndex: "ending_hour" },
-    { title: "employees", dataIndex: "employees" },
-  ];
   return (
     <div>
       Shifts
@@ -34,9 +34,6 @@ const Shifts = () => {
         source={shifts}
         edit={true}
         editData={"Shifts"}
-        case1={"employees"}
-        case2={"name"}
-        case8={"shift"}
       />
       <button onClick={() => navigate("/AddingShift")}>Add Shift</button>
     </div>

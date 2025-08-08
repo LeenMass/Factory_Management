@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import EmployeesDropdown from "../../Components/EmployeesDropdown";
 import { useSelector } from "react-redux";
+import { addNweShift } from "./utilsShifts";
 const shiftsUrl = "http://localhost:4000/shifts";
 
 function AddingShift() {
@@ -20,7 +21,7 @@ function AddingShift() {
   const saveShift = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(shiftsUrl, newShift);
+      await addNweShift(newShift);
       alert(`$ The Shift added successfully`);
       setNewShift({
         date: "",
@@ -35,7 +36,6 @@ function AddingShift() {
       );
     }
   };
-  console.log(newShift);
   return (
     <div>
       Adding Shift

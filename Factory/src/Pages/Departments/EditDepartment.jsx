@@ -70,7 +70,6 @@ const EditDepartment = () => {
 
   const assignEmployeesToDepartment = async () => {
     try {
-      console.log(selectedEmployees);
       await Promise.all(
         selectedEmployees?.map(async (empId) => {
           await axios.put(`http://localhost:4000/employees/${empId}`, {

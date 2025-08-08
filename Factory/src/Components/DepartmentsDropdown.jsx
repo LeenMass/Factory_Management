@@ -1,18 +1,15 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-
-const departmentUrl = "http://localhost:4000/departments";
+import { useEffect, useState } from "react";
+import { getDepartments } from "../Pages/Departments/utilsDepartments";
 
 const DepartmentsDropdown = (props) => {
   const [departments, setDepartments] = useState([]);
 
-  const getDepartments = async () => {
-    const { data } = await axios.get(departmentUrl);
-
+  const getAllDepartments = async () => {
+    const { data } = await getDepartments();
     setDepartments(data);
   };
   useEffect(() => {
-    getDepartments();
+    getAllDepartments();
   }, []);
   return (
     <div>
