@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 import { useNavigate } from "react-router-dom";
-import { addEmployee } from "./utilsEmployees";
+import { addEmployee } from "./employeesUtils";
 
 const AddEmployee = () => {
   const [newEmployee, setNewEmployee] = useState({

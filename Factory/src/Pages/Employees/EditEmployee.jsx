@@ -4,7 +4,7 @@ import {
   DeleteEmployee,
   getEmployeeById,
   UpdateEmployeeData,
-} from "./utilsEmployees";
+} from "./employeesUtils";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 import Table from "../../Components/Table";
 

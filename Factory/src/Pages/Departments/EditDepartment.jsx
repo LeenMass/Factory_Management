@@ -6,8 +6,8 @@ import {
   DeleteDepartment,
   getDepartmentById,
   updateDepartmentData,
-} from "./utilsDepartments";
-import { getemployees } from "../Employees/utilsEmployees";
+} from "./departmentsUtils";
+import { getemployees } from "../Employees/employeesUtils";
 
 const EditDepartment = () => {
   const [department, setDepartmentData] = useState(null);

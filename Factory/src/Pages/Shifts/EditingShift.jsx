@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { UpdateShiftDetails } from "./utilsShifts";
+import { UpdateShiftDetails } from "./shiftsUtils";
 
 function EditingShift() {
   const { id } = useParams();

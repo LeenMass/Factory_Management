@@ -10,6 +10,7 @@ import AddingShift from "./Pages/Shifts/AddingShift";
 import EditingShift from "./Pages/Shifts/EditingShift";
 import NavBar from "./Components/NavBar";
 import EditEmployee from "./Pages/Employees/EditEmployee";
+import Users from "./Pages/Users/Users";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/Shifts" element={<Shifts />}></Route>
         <Route path="/AddingShift" element={<AddingShift />}></Route>
         <Route path="/Shifts/:id" element={<EditingShift />}></Route>
+        <Route path="/Users" element={<Users />}></Route>
       </Routes>
     </>
   );

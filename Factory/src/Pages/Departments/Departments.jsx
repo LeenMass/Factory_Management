@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Table from "../../Components/Table";
 import { useNavigate } from "react-router-dom";
-import { getDepartments } from "./utilsDepartments";
+import { getDepartments } from "./departmentsUtils";
 
 const Departments = () => {
   const [departments, setDepartments] = useState([]);

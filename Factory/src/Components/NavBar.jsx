@@ -15,6 +15,9 @@ const NavBar = () => {
       <NavLink to="/Shifts" className="nav-link">
         Shifts
       </NavLink>
+      <NavLink to="/Users" className="nav-link">
+        Users
+      </NavLink>
     </nav>
   );
 };
