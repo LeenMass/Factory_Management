@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import EmployeesDropdown from "../../Components/EmployeesDropdown";
 import { useNavigate } from "react-router-dom";
-import { addDepartment } from "./utilsDepartments";
-import { getemployees } from "../Employees/utilsEmployees";
+import { addDepartment } from "./departmentsUtils";
+import { getemployees } from "../Employees/employeesUtils";
 
 const AddDepartment = () => {
   const [departmentData, setDepartmentData] = useState({

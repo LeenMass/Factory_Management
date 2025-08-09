@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDepartments } from "../Pages/Departments/utilsDepartments";
+import { getDepartments } from "../Pages/Departments/departmentsUtils";
 
 const DepartmentsDropdown = (props) => {
   const [departments, setDepartments] = useState([]);

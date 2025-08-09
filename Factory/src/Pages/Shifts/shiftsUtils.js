@@ -9,7 +9,7 @@ const getShifts = () => {
         alert(`Failed to fetch Shifts ,${error}`);
     }
 };
-const addNweShift = (shiftObj) => {
+const addNewShift = (shiftObj) => {
     try {
         return axios.post(shiftsUrl, shiftObj);
     } catch (error) {
@@ -24,4 +24,4 @@ const UpdateShiftDetails = (id, shiftObj) => {
         alert(`Failed to update the shift Details, Please try again."`);
     }
 };
-export { getShifts, UpdateShiftDetails, addNweShift }
+export { getShifts, UpdateShiftDetails, addNewShift }

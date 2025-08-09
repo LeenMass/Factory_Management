@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Table from "../../Components/Table";
 import { useNavigate } from "react-router-dom";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
-import { getemployees } from "./utilsEmployees";
+import { getemployees } from "./employeesUtils";
 
 const Employees = () => {
   const [selectedEmp, setSelectedEmp] = useState("");

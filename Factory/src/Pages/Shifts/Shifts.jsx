@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "../../Components/Table";
-import { getShifts } from "./utilsShifts";
+import { getShifts } from "./shiftsUtils";
 
 const Shifts = () => {
   const navigate = useNavigate();
