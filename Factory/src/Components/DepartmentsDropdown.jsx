@@ -4,12 +4,12 @@ import { getDepartments } from "../Pages/Departments/departmentsUtils";
 const DepartmentsDropdown = (props) => {
   const [departments, setDepartments] = useState([]);
 
-  const getAllDepartments = async () => {
+  const getDepartmentsData = async () => {
     const { data } = await getDepartments();
     setDepartments(data);
   };
   useEffect(() => {
-    getAllDepartments();
+    getDepartmentsData();
   }, []);
   return (
     <div>

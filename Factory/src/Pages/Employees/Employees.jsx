@@ -22,6 +22,11 @@ const Employees = () => {
 
   const getAllEmployees = async () => {
     const { data } = await getemployees();
+    console.log("Received data:", data);
+
+    if (!data || data.length === 0) {
+      alert("No data received - check auth");
+    }
     const formatedEmployeesData = data.map((employee) => ({
       id: employee.id,
       employee: {

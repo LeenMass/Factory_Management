@@ -15,16 +15,27 @@ const Departments = () => {
   const getAllDepartments = async () => {
     try {
       const { data } = await getDepartments();
-      const formatedData = data.map((dep) => ({
-        id: dep.id,
-        Manager: dep.Manager,
-        Department: { text: dep.Department, route: "Departments", id: dep.id },
-        Employees: dep.Employees.map((emp) => ({
-          ...emp,
-          text: emp.name,
-          route: "editEmployee",
-        })),
-      }));
+      const formatedData = data.map((dep) => {
+        return {
+          id: dep.id,
+          Manager: dep.Manager,
+          Department: {
+            text: dep.Department,
+            route: "Departments",
+            id: dep.id,
+          },
+          Employees: Array.isArray(dep.Employees)
+            ? dep.Employees.map((emp) => ({
+                ...emp,
+                text: emp.name || "Unknown",
+                id: emp.id,
+                route: "editEmployee",
+              }))
+            : [],
+        };
+      });
+      console.log("Formatted departments:", formatedData);
+
       setDepartments(formatedData);
     } catch (err) {
       alert(`failed to fetch departments`);
@@ -33,6 +44,8 @@ const Departments = () => {
   const addDepartment = () => {
     navigate("/AddDepartment");
   };
+  console.log("Formatted Departments:", departments);
+
   useEffect(() => {
     getAllDepartments();
   }, []);

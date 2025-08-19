@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt, faClock } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const Table = (props) => {
   const tableCells = (e, data) => {
@@ -11,7 +11,7 @@ const Table = (props) => {
             <ul>
               {data[e.dataIndex].map((item, index) => (
                 <li key={index}>
-                  <a href={`/${item.route}/${item.id}`}>{item.text}</a>
+                  <Link to={`/${item.route}/${item.id}`}>{item.text}</Link>
                 </li>
               ))}
             </ul>
@@ -122,9 +122,9 @@ const Table = (props) => {
             ))}
             {props.edit ? (
               <td style={{ display: "flex column" }}>
-                <Link to={`/${props.editData}/${data.id}`}>
+                <a href={`/${props.editData}/${data.id}`}>
                   <i className="fas fa-edit"></i>
-                </Link>
+                </a>
               </td>
             ) : (
               ""

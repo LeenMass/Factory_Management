@@ -14,7 +14,7 @@ const AddDepartment = () => {
   const navigate = useNavigate();
 
   const getEmployeesList = async () => {
-    const employees = await getemployees();
+    const { data: employees } = await getemployees();
     setEmployeesList(employees);
   };
 
@@ -26,7 +26,7 @@ const AddDepartment = () => {
   const saveDepartment = async (e) => {
     e.preventDefault();
     try {
-      await addDepartment(departmentUrl, departmentData);
+      await addDepartment(departmentData);
       alert(`${departmentData.namw} Department added successfully`);
     } catch (error) {
       console.error("Failed to add Department", error);
@@ -37,9 +37,11 @@ const AddDepartment = () => {
     e.preventDefault();
     navigate("/Departments");
   };
+
   useEffect(() => {
     getEmployeesList();
   }, []);
+
   return (
     <div>
       <form>
@@ -52,6 +54,7 @@ const AddDepartment = () => {
           data={employeesList}
           name="manager"
           isMultiple={false}
+          choice={"select manager"}
         />
         <button type="submit" onClick={saveDepartment}>
           Save

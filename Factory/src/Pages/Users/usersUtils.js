@@ -3,7 +3,9 @@ const usersUrl = "http://localhost:4000/users";
 
 const getUsers = () => {
     try {
-        return axios.get(usersUrl);
+        return axios.get(usersUrl, {
+            withCredentials: true
+        });
 
     } catch (error) {
         alert(`Failed to fetch Users ,${error}`);
@@ -11,7 +13,9 @@ const getUsers = () => {
 };
 const getUserById = (id) => {
     try {
-        return axios.get(`${usersUrl}/${id}`);
+        return axios.get(`${usersUrl}/${id}`, {
+            withCredentials: true
+        });
 
     } catch (error) {
         alert(`Failed to get this User ,${error}`);
@@ -19,7 +23,9 @@ const getUserById = (id) => {
 };
 const addNewUser = (userObj) => {
     try {
-        return axios.post(usersUrl, userObj);
+        return axios.post(usersUrl, userObj, {
+            withCredentials: true
+        });
     } catch (error) {
         alert(`Failed to add User ,${error}`);
     }
