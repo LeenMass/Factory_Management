@@ -1,8 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt, faClock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAdd,
+  faCalendarAlt,
+  faClock,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import PopUp from "./Popup";
+import { useState } from "react";
 
 const Table = (props) => {
+  const [isOpenId, setIsOpenId] = useState(null);
   const tableCells = (e, data) => {
     switch (e.type) {
       case "link-list":
@@ -32,6 +40,7 @@ const Table = (props) => {
         if (Array.isArray(data[e.dataIndex])) {
           return (
             <ul
+              key={data.id}
               style={{
                 padding: 0,
                 margin: 0,
@@ -41,11 +50,10 @@ const Table = (props) => {
             >
               {data[e.dataIndex].map((item, index) => {
                 const values = Object.values(item).slice(1);
-
                 if (props.op1 === "case1") {
                   return (
                     <li
-                      key={index}
+                      key={item.id}
                       style={{
                         display: "flex",
                         flexDirection: "column",
@@ -73,8 +81,24 @@ const Table = (props) => {
                   );
                 } else {
                   return (
-                    <li style={{ textAlign: "center" }}>
-                      <span>{values}</span>
+                    <li style={{ textAlign: "center" }} key={item.id}>
+                      {props.select ? (
+                        <>
+                          <span>{values}</span>
+                          <input
+                            type="checkBox"
+                            onChange={() =>
+                              props.setChoices(data.id, Object.values(item)[0])
+                            }
+                            checked={props.choices?.includes(
+                              Object.values(item)[0]
+                            )}
+                            name="id"
+                          />
+                        </>
+                      ) : (
+                        <span>{values}</span>
+                      )}
                     </li>
                   );
                 }
@@ -93,41 +117,79 @@ const Table = (props) => {
     <table border="1">
       <thead>
         <tr>
-          {props.columns.map((e, index) => {
-            return (
-              <th
-                key={index}
-                style={{
-                  width: `${100 / props.columns.length}%`,
-                }}
-              >
-                {e.title}
-              </th>
-            );
-          })}
+          {props.columns.map((e, index) => (
+            <th key={index} style={{ width: `${100 / props.columns.length}%` }}>
+              {e.title}
+            </th>
+          ))}
+          {props.edit && (
+            <>
+              <th colSpan="2"></th>
+            </>
+          )}
         </tr>
       </thead>
+
       <tbody>
         {props.source.map((data, index) => (
-          <tr key={index}>
+          <tr key={data.id || index}>
             {props.columns.map((e) => (
               <td
                 key={e.title}
-                style={{
-                  width: `${100 / props.columns.length}%`,
-                }}
+                style={{ width: `${100 / props.columns.length}%` }}
               >
                 {tableCells(e, data)}
               </td>
             ))}
-            {props.edit ? (
-              <td style={{ display: "flex column" }}>
-                <a href={`/${props.editData}/${data.id}`}>
-                  <i className="fas fa-edit"></i>
-                </a>
-              </td>
-            ) : (
-              ""
+
+            {props.edit && (
+              <>
+                <td style={{ textAlign: "center", padding: "10px" }}>
+                  <a
+                    href={`/${props.editData}/${data.id}`}
+                    style={{ color: "#007bff" }}
+                  >
+                    <i className="fas fa-edit"></i>
+                    {props.editIcon}
+                  </a>
+                </td>
+
+                <td
+                  style={{
+                    textAlign: "center",
+                    padding: "10px",
+                    borderLeft: "1px solid #ccc",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "#28a745",
+                      cursor: "pointer",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: "5px",
+                    }}
+                    onClick={() => setIsOpenId(data.id)}
+                    title={props.addIcon}
+                  >
+                    <FontAwesomeIcon
+                      icon={faAdd}
+                      style={{ fontSize: "20px" }}
+                    />
+                    <span>{props.addIcon}</span>
+                  </div>
+
+                  {isOpenId === data.id && (
+                    <PopUp
+                      isOpen={isOpenId}
+                      onClose={() => setIsOpenId(null)}
+                      id={data.id}
+                      eData={data?.employees}
+                    />
+                  )}
+                </td>
+              </>
             )}
           </tr>
         ))}

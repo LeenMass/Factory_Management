@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import "../assets/navBarStyle.css";
-import { useEffect, useState } from "react";
 import axios from "axios";
 const NavBar = () => {
   const logout = () => {

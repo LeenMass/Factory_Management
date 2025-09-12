@@ -18,7 +18,9 @@ const ProtectedLayout = () => {
 
   return (
     <>
+      {" "}
       <NavBar />
+      <h3>{localStorage["full_name"]}</h3>
       <Outlet />
     </>
   );

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getDepartments } from "../Pages/Departments/departmentsUtils";
 
 const DepartmentsDropdown = (props) => {
+  console.log(props.selected);
+
   const [departments, setDepartments] = useState([]);
 
   const getDepartmentsData = async () => {
@@ -19,7 +21,6 @@ const DepartmentsDropdown = (props) => {
             target: { value: e.target.value, name: "department_id" },
           })
         }
-        name="department_id"
         value={props.selected}
       >
         <option value="">select Department</option>
