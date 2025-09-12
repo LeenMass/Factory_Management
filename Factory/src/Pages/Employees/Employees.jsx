@@ -22,7 +22,6 @@ const Employees = () => {
 
   const getAllEmployees = async () => {
     const { data } = await getemployees();
-    console.log("Received data:", data);
 
     if (!data || data.length === 0) {
       alert("No data received - check auth");
@@ -41,14 +40,14 @@ const Employees = () => {
       },
       shifts: employee.shifts || [],
     }));
+
     setEmployees(formatedEmployeesData);
   };
-
   const employeesData =
     selectedEmp.department_id == "" || !selectedEmp.department_id
       ? employees
       : employees.filter(
-          (emp) => emp.department_id == selectedEmp.department_id
+          (emp) => emp.Department.id == selectedEmp.department_id
         );
 
   const NavigateToAddEmployee = () => {
@@ -61,7 +60,11 @@ const Employees = () => {
 
   return (
     <div>
-      Employess <DepartmentsDropdown select={handleChange} selected={""} />
+      Employess{" "}
+      <DepartmentsDropdown
+        select={handleChange}
+        selected={selectedEmp.department_id}
+      />
       <Table columns={columns} source={employeesData} op1={"case1"} />
       <br />
       <button onClick={NavigateToAddEmployee}>New Employee</button>

@@ -1,26 +1,31 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import EmployeesDropdown from "../../Components/EmployeesDropdown";
-import { useSelector } from "react-redux";
 import { addNewShift } from "./shiftsUtils";
+import { getemployees } from "../Employees/employeesUtils";
 
-function AddingShift() {
+const AddingShift = () => {
   const [newShift, setNewShift] = useState({
     date: "",
     starting_hour: "",
     ending_hour: "",
     employees: [],
   });
-  const employeesD = useSelector((state) => state.employees);
+  const [employeesList, setEmployeesList] = useState([]);
+  const getEmployeesList = async () => {
+    const { data } = await getemployees();
+    setEmployeesList(data);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewShift({ ...newShift, [name]: value });
   };
+
   const saveShift = async (e) => {
     e.preventDefault();
     try {
       await addNewShift(newShift);
-      alert(`$ The Shift added successfully`);
+      alert(` The Shift added successfully`);
       setNewShift({
         date: "",
         starting_hour: "",
@@ -34,6 +39,9 @@ function AddingShift() {
       );
     }
   };
+  useEffect(() => {
+    getEmployeesList();
+  }, []);
   return (
     <div>
       Adding Shift
@@ -58,7 +66,7 @@ function AddingShift() {
         />
         <EmployeesDropdown
           select={handleChange}
-          data={employeesD}
+          data={employeesList}
           name={"employees"}
           isMultiple={true}
         />
@@ -70,6 +78,6 @@ function AddingShift() {
       </form>
     </div>
   );
-}
+};
 
 export default AddingShift;

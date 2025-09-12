@@ -11,6 +11,16 @@ const getShifts = () => {
         alert(`Failed to fetch Shifts ,${error}`);
     }
 };
+const getShiftById = (id) => {
+    try {
+        return axios.get(`${shiftsUrl}/${id}`, {
+            withCredentials: true
+        });
+
+    } catch (error) {
+        alert(`Failed to get Shift ,${error}`);
+    }
+};
 const addNewShift = (shiftObj) => {
     try {
         return axios.post(shiftsUrl, shiftObj, {
@@ -30,4 +40,26 @@ const UpdateShiftDetails = (id, shiftObj) => {
         alert(`Failed to update the shift Details, Please try again."`);
     }
 };
-export { getShifts, UpdateShiftDetails, addNewShift }
+const addEmployeesToShift = (object) => {
+    try {
+        return axios.post(`${shiftsUrl}/addingEmployeesToShift`, object, {
+            withCredentials: true
+        });
+
+    } catch (error) {
+        alert(`Failed to update the shift Details, Please try again."`);
+    }
+};
+const DeleteEmployeeFromShift = (empIds) => {
+    try {
+        return axios.post(`${shiftsUrl}/employeesShift`, empIds, {
+            withCredentials: true,
+
+        });
+
+    } catch (error) {
+        alert(`Failed to delete employee from this shift, Please try again."`);
+    }
+};
+
+export { getShifts, UpdateShiftDetails, addNewShift, getShiftById, DeleteEmployeeFromShift, addEmployeesToShift }

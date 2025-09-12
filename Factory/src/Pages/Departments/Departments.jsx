@@ -34,8 +34,6 @@ const Departments = () => {
             : [],
         };
       });
-      console.log("Formatted departments:", formatedData);
-
       setDepartments(formatedData);
     } catch (err) {
       alert(`failed to fetch departments`);
@@ -44,7 +42,6 @@ const Departments = () => {
   const addDepartment = () => {
     navigate("/AddDepartment");
   };
-  console.log("Formatted Departments:", departments);
 
   useEffect(() => {
     getAllDepartments();
