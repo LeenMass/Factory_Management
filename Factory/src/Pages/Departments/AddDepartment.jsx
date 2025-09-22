@@ -27,7 +27,7 @@ const AddDepartment = () => {
     e.preventDefault();
     try {
       await addDepartment(departmentData);
-      alert(`${departmentData.namw} Department added successfully`);
+      alert(`${departmentData.name} Department added successfully`);
     } catch (error) {
       console.error("Failed to add Department", error);
     }

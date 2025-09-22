@@ -182,7 +182,7 @@ const Table = (props) => {
 
                   {isOpenId === data.id && (
                     <PopUp
-                      isOpen={isOpenId}
+                      isOpen={isOpenId === data.id}
                       onClose={() => setIsOpenId(null)}
                       id={data.id}
                       eData={data?.employees}

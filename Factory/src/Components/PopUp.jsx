@@ -73,6 +73,7 @@ const PopUp = (props) => {
           data={employeesList}
           name={"employees"}
           isMultiple={true}
+          placeholder={"select employees"}
         />
         <button onClick={props.onClose}>close</button>
         <button onClick={addEmpToShift}>add</button>
