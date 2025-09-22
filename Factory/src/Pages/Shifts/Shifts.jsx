@@ -42,13 +42,18 @@ const Shifts = () => {
   };
 
   const deleteEmployeesFromShifts = async () => {
+    const isConfirmed = window.confirm(
+      `Are you sure you want to delete there employees
+       ?`
+    );
+    if (!isConfirmed) return;
     try {
       await DeleteEmployeeFromShift(selectChoices);
-      alert(` the employees removed successfully`);
+      alert(`employees removed successfully`);
       setSelectMode(false);
     } catch (error) {
       alert(
-        `Failed to add This Shift,
+        `Failed to remove employees,
         ${error}
       `
       );

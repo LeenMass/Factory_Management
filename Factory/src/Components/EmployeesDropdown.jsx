@@ -19,7 +19,9 @@ const EmployeesDropdown = (props) => {
         multiple={props.isMultiple}
         name={props.name}
       >
-        <option value="">{props.placeholder}</option>
+        <option value="" disabled>
+          {props.placeholder}
+        </option>
         {props.data.map((emp) => {
           return (
             <option value={emp.id} key={emp.id}>

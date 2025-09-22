@@ -7,10 +7,14 @@ import {
 } from "./employeesUtils";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 import Table from "../../Components/Table";
+import { getShiftById, getShifts } from "../Shifts/shiftsUtils";
 
 const EditEmployee = () => {
   const { id } = useParams();
   const [employee, setEmployee] = useState(null);
+  const [shifts, setShifts] = useState([]);
+  const [choiceDate, setDate] = useState({});
+  const [shiftData, setShiftData] = useState([]);
   const [employeeUpdatedData, setNewData] = useState({
     first_name: "",
     last_name: "",
@@ -24,6 +28,11 @@ const EditEmployee = () => {
     { title: "Ending_hour", dataIndex: "ending_hour" },
   ];
 
+  const getAllShifts = async () => {
+    const { data } = await getShifts();
+    setShifts(data);
+  };
+
   const fetchEmployeeData = async () => {
     const { data } = await getEmployeeById(id);
     setEmployee(data);
@@ -33,7 +42,6 @@ const EditEmployee = () => {
       department_id: data.department_id || "",
     });
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "first_name" || name === "last_name") {
@@ -78,61 +86,93 @@ const EditEmployee = () => {
       );
     }
   };
-
   useEffect(() => {
     fetchEmployeeData();
   }, [id]);
 
+  useEffect(() => {
+    getAllShifts();
+  }, []);
+
+  console.log(choiceDate.date);
+  useEffect(() => {
+    console.log(shifts);
+    if (choiceDate.date && shifts.length > 0) {
+      setShiftData(shifts.filter((e) => e.date === choiceDate.date));
+    }
+  }, [choiceDate.date, shifts]);
+
   return (
-    <form onSubmit={updateData}>
-      First Name:{" "}
-      <input
-        name="first_name"
-        value={employeeUpdatedData.first_name || ""}
-        onChange={handleChange}
-      />
-      Last Name:{" "}
-      <input
-        name="last_name"
-        value={employeeUpdatedData.last_name || ""}
-        onChange={handleChange}
-      />
-      Department :
-      <DepartmentsDropdown
-        select={handleChange}
-        selected={employeeUpdatedData.department_id || ""}
-      />
-      <div style={{ marginTop: "30px" }}>
-        {" "}
-        <button
-          type="submit"
-          style={{ marginRight: "30px", border: "2px solid black" }}
-        >
+    <>
+      <form onSubmit={updateData}>
+        First Name:{" "}
+        <input
+          name="first_name"
+          value={employeeUpdatedData.first_name || ""}
+          onChange={handleChange}
+        />
+        Last Name:{" "}
+        <input
+          name="last_name"
+          value={employeeUpdatedData.last_name || ""}
+          onChange={handleChange}
+        />
+        Department :
+        <DepartmentsDropdown
+          select={handleChange}
+          selected={employeeUpdatedData.department_id || ""}
+        />
+        <div style={{ marginTop: "30px" }}>
           {" "}
-          Update
-        </button>
-        <button
-          onClick={deleteEmployee}
-          style={{ marginRight: "30px", border: "2px solid black" }}
-        >
-          Delete Employee
-        </button>
-        <button
-          onClick={() => navigate("/Employees")}
-          style={{ marginRight: "30px", border: "2px solid black" }}
-        >
-          Cancel
-        </button>
-      </div>
-      <div style={{ marginTop: "30px" }}>
-        {" "}
-        {employee?.shifts?.length > 0 ? (
-          <Table source={employee.shifts} columns={columns} />
-        ) : (
-          <p>No shifts assigned for this employee</p>
-        )}
-      </div>
-    </form>
+          <button
+            type="submit"
+            style={{ marginRight: "30px", border: "2px solid black" }}
+          >
+            {" "}
+            Update
+          </button>
+          <button
+            onClick={deleteEmployee}
+            style={{ marginRight: "30px", border: "2px solid black" }}
+          >
+            Delete Employee
+          </button>
+          <button
+            onClick={() => navigate("/Employees")}
+            style={{ marginRight: "30px", border: "2px solid black" }}
+          >
+            Cancel
+          </button>
+        </div>
+        <div style={{ marginTop: "30px" }}>
+          {" "}
+          {employee?.shifts?.length > 0 ? (
+            <Table source={employee.shifts} columns={columns} />
+          ) : (
+            <p>No shifts assigned for this employee</p>
+          )}
+        </div>
+        <h6>register to new shift:</h6>
+      </form>{" "}
+      <select
+        onChange={(e) => setDate({ ...choiceDate, date: e.target.value })}
+      >
+        <option disabled>choose date</option>
+        {shifts.map((shift) => (
+          <option value={shift.date}>{shift.date}</option>
+        ))}
+      </select>
+      <h3>select starting hour:</h3>
+      <select
+        onChange={(e) =>
+          setDate({ ...choiceDate, starting_hour: e.target.value })
+        }
+      >
+        {shiftData?.map((e) => (
+          <option value={e.starting_hour}>{e.starting_hour}</option>
+        ))}
+      </select>
+    </>
   );
 };
 
