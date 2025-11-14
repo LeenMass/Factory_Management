@@ -8,26 +8,27 @@ const Departments = () => {
   const navigate = useNavigate();
 
   const columns = [
-    { title: "Department", dataIndex: "Department", type: "link" },
-    { title: "Manager", dataIndex: "Manager" },
-    { title: "Employees", dataIndex: "Employees", type: "link-list" },
+    { title: "Department", dataIndex: "department", type: "link" },
+    { title: "Manager", dataIndex: "managerName" },
+    { title: "Employees", dataIndex: "employees", type: "link-list" },
   ];
+
   const getAllDepartments = async () => {
     try {
       const { data } = await getDepartments();
       const formatedData = data.map((dep) => {
         return {
           id: dep.id,
-          Manager: dep.Manager,
-          Department: {
-            text: dep.Department,
+          managerName: dep.managerName,
+          department: {
+            text: dep.department,
             route: "Departments",
             id: dep.id,
           },
-          Employees: Array.isArray(dep.Employees)
-            ? dep.Employees.map((emp) => ({
+          employees: Array.isArray(dep.employees)
+            ? dep.employees.map((emp) => ({
                 ...emp,
-                text: emp.name || "Unknown",
+                text: emp.name || "Un known",
                 id: emp.id,
                 route: "editEmployee",
               }))

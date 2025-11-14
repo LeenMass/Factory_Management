@@ -25,7 +25,7 @@ const EmployeesDropdown = (props) => {
         {props.data.map((emp) => {
           return (
             <option value={emp.id} key={emp.id}>
-              {emp.name}
+              {emp.first_name + " " + emp.last_name}
             </option>
           );
         })}

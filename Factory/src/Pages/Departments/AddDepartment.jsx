@@ -29,7 +29,7 @@ const AddDepartment = () => {
       await addDepartment(departmentData);
       alert(`${departmentData.name} Department added successfully`);
     } catch (error) {
-      console.error("Failed to add Department", error);
+      alert("Failed to add Department", error);
     }
   };
 

@@ -8,7 +8,6 @@ function EditingShift() {
     ending_hour: "",
     starting_hour: "",
   });
-  const [cancel, setCancel] = useState(false);
 
   const { id } = useParams();
   const navigate = useNavigate();

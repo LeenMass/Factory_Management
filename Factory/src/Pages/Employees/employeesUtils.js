@@ -3,16 +3,16 @@ import axios from "axios";
 
 const EmployeesUrl = "http://localhost:4000/employees";
 
-const getemployees = () => {
-    try {
 
-        return axios.get(EmployeesUrl, {
-            withCredentials: true
-        });
+const getemployees = async () => {
+    try {
+        const res = await axios.get(EmployeesUrl, { withCredentials: true });
+        return res;
     } catch (error) {
-        alert(`Failed to fetch Data ,${error}`);
+        alert(`Failed to fetch Data: ${error}`);
+        return { data: [] };
     }
-};
+}
 const getEmployeeById = (id) => {
     try {
         return axios.get(`${EmployeesUrl}/${id}`, {

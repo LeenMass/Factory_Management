@@ -52,7 +52,7 @@ const AddEmployee = () => {
   };
   return (
     <div>
-      Add Employee
+      <h2>Add New Employee</h2>
       <form>
         <input
           name="first_name"

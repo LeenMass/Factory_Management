@@ -26,11 +26,15 @@ const NavBar = () => {
         </NavLink>
         <NavLink to="/Users" className="nav-link">
           Users
-        </NavLink>
-        <button className="nav-link" onClick={logout}>
+        </NavLink>{" "}
+        <button
+          className="nav-link"
+          onClick={logout}
+          style={{ color: "black" }}
+        >
           logout
         </button>
-      </>
+      </>{" "}
     </nav>
   );
 };

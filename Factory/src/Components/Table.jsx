@@ -3,10 +3,9 @@ import {
   faAdd,
   faCalendarAlt,
   faClock,
-  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import PopUp from "./Popup";
+import PopUp from "./PopUp";
 import { useState } from "react";
 
 const Table = (props) => {
@@ -186,6 +185,7 @@ const Table = (props) => {
                       onClose={() => setIsOpenId(null)}
                       id={data.id}
                       eData={data?.employees}
+                      update={props.update}
                     />
                   )}
                 </td>

@@ -6,7 +6,7 @@
   z-index: 1000;
   display: flex;
   justify-content: start;
-  background-color: #2e8b57;
+  background-color: #4ea976;
   padding: 10px 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -20,11 +20,11 @@
 }
 
 .nav-link:hover {
-  color: #ffd700;
+  color: #1bc9dc;
   text-decoration: underline;
 }
 
 .nav-link.active {
   font-weight: bold;
-  border-bottom: 2px solid white;
+  color: rgb(243, 241, 122);
 }
