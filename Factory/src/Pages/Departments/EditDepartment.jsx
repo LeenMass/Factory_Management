@@ -35,7 +35,7 @@ const EditDepartment = () => {
     setDepartmentData(data);
     setUpdateDepartmentData({
       name: data?.name || "",
-      manager: data?.manager || "",
+      manager: data?. anager || "",
     });
   };
 

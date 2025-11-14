@@ -25,10 +25,9 @@ export default function LogIn() {
       localStorage["full_name"] = data.full_name;
       navigate("/Employees");
     } catch (error) {
-      console.error("User not found");
+      alert("User not found");
     }
   };
-
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={logInBtn}>

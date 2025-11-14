@@ -7,13 +7,13 @@ import {
 } from "./employeesUtils";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 import Table from "../../Components/Table";
-import { getShiftById, getShifts } from "../Shifts/shiftsUtils";
+import { assignEmployeeToShift, getShifts } from "../Shifts/shiftsUtils";
 
 const EditEmployee = () => {
   const { id } = useParams();
   const [employee, setEmployee] = useState(null);
   const [shifts, setShifts] = useState([]);
-  const [choiceDate, setDate] = useState({});
+  const [choiceDate, setDate] = useState({ empId: id });
   const [shiftData, setShiftData] = useState([]);
   const [employeeUpdatedData, setNewData] = useState({
     first_name: "",
@@ -50,9 +50,12 @@ const EditEmployee = () => {
         alert(`First name and last name must contain only letters and spaces`);
       }
     }
-    setNewData((prev) => ({ ...prev, [name]: value }));
+    setNewData((oldData) => ({ ...oldData, [name]: value }));
   };
-
+  const handelRegesterToshift = (e) => {
+    const { name, value } = e.target;
+    setDate({ ...choiceDate, [name]: value });
+  };
   const updateData = async (e) => {
     e.preventDefault();
     try {
@@ -86,6 +89,14 @@ const EditEmployee = () => {
       );
     }
   };
+  const addEmployeeToShift = async () => {
+    try {
+      await assignEmployeeToShift(choiceDate);
+      alert(`Employees have been successfully added to this shift.`);
+    } catch (eror) {
+      
+    }
+  };
   useEffect(() => {
     fetchEmployeeData();
   }, [id]);
@@ -94,11 +105,18 @@ const EditEmployee = () => {
     getAllShifts();
   }, []);
 
-  console.log(choiceDate.date);
   useEffect(() => {
-    console.log(shifts);
     if (choiceDate.date && shifts.length > 0) {
-      setShiftData(shifts.filter((e) => e.date === choiceDate.date));
+      const dataShiftsByDate = shifts.filter((e) => e.date === choiceDate.date);
+      if (employee.shifts) {
+        const idsToRemove = new Set(employee.shifts.map((obj) => obj._id));
+
+        const filtered = dataShiftsByDate.filter(
+          (obj) => !idsToRemove.has(obj.id)
+        );
+
+        setShiftData(filtered);
+      }
     }
   }, [choiceDate.date, shifts]);
 
@@ -122,56 +140,52 @@ const EditEmployee = () => {
           select={handleChange}
           selected={employeeUpdatedData.department_id || ""}
         />
-        <div style={{ marginTop: "30px" }}>
+        <button
+          type="submit"
+          style={{ marginRight: "30px", border: "2px solid black" }}
+        >
           {" "}
-          <button
-            type="submit"
-            style={{ marginRight: "30px", border: "2px solid black" }}
-          >
-            {" "}
-            Update
-          </button>
-          <button
-            onClick={deleteEmployee}
-            style={{ marginRight: "30px", border: "2px solid black" }}
-          >
-            Delete Employee
-          </button>
-          <button
-            onClick={() => navigate("/Employees")}
-            style={{ marginRight: "30px", border: "2px solid black" }}
-          >
-            Cancel
-          </button>
-        </div>
-        <div style={{ marginTop: "30px" }}>
-          {" "}
-          {employee?.shifts?.length > 0 ? (
-            <Table source={employee.shifts} columns={columns} />
-          ) : (
-            <p>No shifts assigned for this employee</p>
-          )}
-        </div>
-        <h6>register to new shift:</h6>
+          Update
+        </button>
       </form>{" "}
-      <select
-        onChange={(e) => setDate({ ...choiceDate, date: e.target.value })}
-      >
-        <option disabled>choose date</option>
-        {shifts.map((shift) => (
-          <option value={shift.date}>{shift.date}</option>
+      <div style={{ marginTop: "30px" }}>
+        {" "}
+        <button
+          onClick={deleteEmployee}
+          style={{ marginRight: "30px", border: "2px solid black" }}
+        >
+          Delete Employee
+        </button>
+        <button
+          onClick={() => navigate("/Employees")}
+          style={{ marginRight: "30px", border: "2px solid black" }}
+        >
+          Cancel
+        </button>
+      </div>{" "}
+      <h6>register to new shift:</h6>
+      <div style={{ marginTop: "30px" }}>
+        {" "}
+        {employee?.shifts?.length > 0 ? (
+          <Table source={employee.shifts} columns={columns} />
+        ) : (
+          <p>No shifts assigned for this employee</p>
+        )}
+      </div>
+      <select onChange={handelRegesterToshift} name="date">
+        <option value="">choose date</option>
+        {[...new Set(shifts.map((shift) => shift.date))].map((shift) => (
+          <option value={shift.date}>{shift}</option>
         ))}
       </select>
       <h3>select starting hour:</h3>
-      <select
-        onChange={(e) =>
-          setDate({ ...choiceDate, starting_hour: e.target.value })
-        }
-      >
-        {shiftData?.map((e) => (
-          <option value={e.starting_hour}>{e.starting_hour}</option>
+      <select onChange={handelRegesterToshift} name="shiftId">
+        <option value="">select starting hour</option>
+        {shiftData.map((e) => (
+          <option value={e.id}>{e.starting_hour}</option>
         ))}
       </select>
+      <button onClick={addEmployeeToShift}>add</button>
     </>
   );
 };

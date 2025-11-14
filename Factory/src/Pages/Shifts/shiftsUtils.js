@@ -47,7 +47,7 @@ const addEmployeesToShift = (object) => {
         });
 
     } catch (error) {
-        alert(`Failed to update the shift Details, Please try again."`);
+        alert(`Failed to add employees to this shift , Please try again."`);
     }
 };
 const DeleteEmployeeFromShift = (empIds) => {
@@ -62,4 +62,14 @@ const DeleteEmployeeFromShift = (empIds) => {
     }
 };
 
-export { getShifts, UpdateShiftDetails, addNewShift, getShiftById, DeleteEmployeeFromShift, addEmployeesToShift }
+const assignEmployeeToShift = (object) => {
+    try {
+        return axios.post(`${shiftsUrl}/employeeToshift`, object, {
+            withCredentials: true
+        });
+
+    } catch (error) {
+        alert(`Failed to add employee to this shift , Please try again."`);
+    }
+};
+export { getShifts, UpdateShiftDetails, addNewShift, getShiftById, DeleteEmployeeFromShift, addEmployeesToShift, assignEmployeeToShift }

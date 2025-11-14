@@ -43,12 +43,27 @@ const Shifts = () => {
 
   const deleteEmployeesFromShifts = async () => {
     const isConfirmed = window.confirm(
-      `Are you sure you want to delete there employees
-       ?`
+      `Are you sure you want to delete there employees?`
     );
     if (!isConfirmed) return;
     try {
       await DeleteEmployeeFromShift(selectChoices);
+      setShifts((prevShifts) =>
+        prevShifts.map((shift) => {
+          const found = selectChoices.find(
+            (choice) => choice.shift_id === shift.id
+          );
+          if (!found) return shift;
+
+          return {
+            ...shift,
+            employees: shift.employees.filter(
+              (emp) => !found.employees.includes(emp.id)
+            ),
+          };
+        })
+      );
+
       alert(`employees removed successfully`);
       setSelectMode(false);
     } catch (error) {
@@ -59,10 +74,10 @@ const Shifts = () => {
       );
     }
   };
+
   const getAllShifts = async () => {
     try {
       const { data } = await getShifts();
-
       setShifts(data);
     } catch (error) {
       alert(`Failed to fetch Shifts ,${error}`);
@@ -72,6 +87,7 @@ const Shifts = () => {
   useEffect(() => {
     getAllShifts();
   }, []);
+
   return (
     <div>
       <button onClick={() => setSelectMode(true)}>Select</button>
@@ -92,6 +108,7 @@ const Shifts = () => {
         select={selectMode}
         setChoices={handelChoice}
         choices={selectChoices?.employees}
+        update={setShifts}
       />
       <button onClick={() => navigate("/AddingShift")}>Add Shift</button>
     </div>

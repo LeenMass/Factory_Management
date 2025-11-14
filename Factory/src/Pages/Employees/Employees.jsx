@@ -3,12 +3,12 @@ import Table from "../../Components/Table";
 import { useNavigate } from "react-router-dom";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 import { getemployees } from "./employeesUtils";
+import axios from "axios";
 
 const Employees = () => {
   const [selectedEmp, setSelectedEmp] = useState("");
   const [employees, setEmployees] = useState([]);
   const navigate = useNavigate();
-
   const columns = [
     { title: "Full Name", dataIndex: "employee", type: "link" },
     { title: "Department", dataIndex: "Department", type: "link" },
@@ -29,7 +29,7 @@ const Employees = () => {
     const formatedEmployeesData = data.map((employee) => ({
       id: employee.id,
       employee: {
-        text: employee.name,
+        text: employee.first_name + " " + employee.last_name,
         id: employee.id,
         route: "editEmployee",
       },
