@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 import { getemployees } from "./employeesUtils";
 import axios from "axios";
+import { countOfUserActions } from "../Users/usersUtils";
 
 const Employees = () => {
   const [selectedEmp, setSelectedEmp] = useState("");
@@ -24,7 +25,7 @@ const Employees = () => {
     const { data } = await getemployees();
 
     if (!data || data.length === 0) {
-      alert("No data received - check auth");
+      alert("No data received");
     }
     const formatedEmployeesData = data.map((employee) => ({
       id: employee.id,
@@ -50,7 +51,8 @@ const Employees = () => {
           (emp) => emp.Department.id == selectedEmp.department_id
         );
 
-  const NavigateToAddEmployee = () => {
+  const NavigateToAddEmployee = async () => {
+    await countOfUserActions(navigate);
     navigate("/AddEmployee");
   };
 

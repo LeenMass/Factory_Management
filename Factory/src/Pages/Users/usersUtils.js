@@ -1,6 +1,6 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const usersUrl = "http://localhost:4000/users";
-
 const getUsers = () => {
     try {
         return axios.get(usersUrl, {
@@ -8,6 +8,20 @@ const getUsers = () => {
         });
 
     } catch (error) {
+        alert(`Failed to fetch Users ,${error}`);
+    }
+};
+const countOfUserActions = async (navigate) => {
+    try {
+        const { data } = await axios.post(`${usersUrl}/actions`, {}, {
+            withCredentials: true
+        });
+        if (data.remaining === 0) {
+            alert("You reached your daily action limit. Logging out...");
+            navigate("/");
+        }
+    }
+    catch (error) {
         alert(`Failed to fetch Users ,${error}`);
     }
 };
@@ -31,4 +45,4 @@ const addNewUser = (userObj) => {
     }
 };
 
-export { getUserById, getUsers, addNewUser }
+export { getUserById, getUsers, addNewUser, countOfUserActions }
