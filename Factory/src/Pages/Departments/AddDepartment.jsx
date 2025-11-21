@@ -3,6 +3,7 @@ import EmployeesDropdown from "../../Components/EmployeesDropdown";
 import { useNavigate } from "react-router-dom";
 import { addDepartment } from "./departmentsUtils";
 import { getemployees } from "../Employees/employeesUtils";
+import { countOfUserActions } from "../Users/usersUtils";
 
 const AddDepartment = () => {
   const [departmentData, setDepartmentData] = useState({
@@ -29,7 +30,9 @@ const AddDepartment = () => {
       await addDepartment(departmentData);
       alert(`${departmentData.name} Department added successfully`);
     } catch (error) {
-      alert("Failed to add Department", error);
+      if (error.response?.status === 403) {
+        alert(error.response.data.message);
+      }
     }
   };
 

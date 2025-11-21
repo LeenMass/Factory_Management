@@ -2,7 +2,7 @@ import { useState } from "react";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 import { useNavigate } from "react-router-dom";
 import { addEmployee } from "./employeesUtils";
-
+import useAction from "../Users/Action";
 const AddEmployee = () => {
   const [newEmployee, setNewEmployee] = useState({
     first_name: "",
@@ -11,6 +11,7 @@ const AddEmployee = () => {
     department_id: "",
   });
   const navigate = useNavigate();
+  const { checkActionNumber } = useAction();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,25 +31,28 @@ const AddEmployee = () => {
 
   const saveEmployee = async (e) => {
     e.preventDefault();
-    try {
-      await addEmployee(newEmployee);
-      alert(
-        `New Employee ${newEmployee.first_name} ${newEmployee.last_name}  has been added successfully.`
-      );
-      setNewEmployee({
-        first_name: "",
-        last_name: "",
-        start_work_year: "",
-        department_id: "",
-      });
-      navigate("/Employees");
-    } catch (error) {
-      alert(
-        `Failed to add ${newEmployee.first_name} ${newEmployee.last_name},
+
+    checkActionNumber(async () => {
+      try {
+        await addEmployee(newEmployee);
+        alert(
+          `New Employee ${newEmployee.first_name} ${newEmployee.last_name}  has been added successfully.`
+        );
+        setNewEmployee({
+          first_name: "",
+          last_name: "",
+          start_work_year: "",
+          department_id: "",
+        });
+        navigate("/Employees");
+      } catch (error) {
+        alert(
+          `Failed to add ${newEmployee.first_name} ${newEmployee.last_name},
         ${error}
       `
-      );
-    }
+        );
+      }
+    });
   };
   return (
     <div>
