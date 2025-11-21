@@ -137,7 +137,7 @@ const EditDepartment = () => {
         isMultiple={true}
         placeholder={"Select A Employees"}
       />
-      <button onClick={assignEmployeesToDepartment}>Add emp</button>
+      <button onClick={assignEmployeesToDepartment}>Add Employee</button>
     </div>
   );
 };
