@@ -96,11 +96,16 @@ const EditEmployee = () => {
       }
     });
   };
-  const addEmployeeToShift = async () => {
-    try {
-      await assignEmployeeToShift(choiceDate);
-      alert(`Employees have been successfully added to this shift.`);
-    } catch (eror) {}
+  const addEmployeeToShift = async (e) => {
+    e.preventDefault();
+    checkActionNumber(async () => {
+      try {
+        await assignEmployeeToShift(choiceDate);
+        alert(`Employees have been successfully added to this shift.`);
+      } catch (eror) {
+        alert("Failed to add Employees to this Shift");
+      }
+    });
   };
   useEffect(() => {
     fetchEmployeeData();
