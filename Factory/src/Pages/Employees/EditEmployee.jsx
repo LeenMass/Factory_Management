@@ -82,18 +82,19 @@ const EditEmployee = () => {
       `Are you sure you want to delete ${employee.first_name} ${employee.last_name}?`
     );
     if (!isConfirmed) return;
-
-    try {
-      await DeleteEmployee(id);
-      alert(
-        `Successfully removed ${employee.first_name} ${employee.last_name}'s record.`
-      );
-      navigate("/Employees");
-    } catch (error) {
-      alert(
-        `Failed to delete ${employee.first_name} ${employee.last_name}'s record!`
-      );
-    }
+    checkActionNumber(async () => {
+      try {
+        await DeleteEmployee(id);
+        alert(
+          `Successfully removed ${employee.first_name} ${employee.last_name}'s record.`
+        );
+        navigate("/Employees");
+      } catch (error) {
+        alert(
+          `Failed to delete ${employee.first_name} ${employee.last_name}'s record!`
+        );
+      }
+    });
   };
   const addEmployeeToShift = async () => {
     try {
