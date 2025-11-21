@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "../../Components/Table";
 import { DeleteEmployeeFromShift, getShifts } from "./shiftsUtils";
-import { countOfUserActions } from "../Users/usersUtils";
+import useAction from "../Users/Action";
 
 const Shifts = () => {
   const navigate = useNavigate();
   const [shifts, setShifts] = useState([]);
   const [selectMode, setSelectMode] = useState(false);
   const [selectChoices, setSelectChoices] = useState([]);
-
+  const { checkActionNumber } = useAction();
   const columns = [
     { title: "Date", dataIndex: "date" },
     { title: "starting_hour", dataIndex: "starting_hour" },
@@ -47,33 +47,35 @@ const Shifts = () => {
       `Are you sure you want to delete there employees?`
     );
     if (!isConfirmed) return;
-    try {
-      await DeleteEmployeeFromShift(selectChoices);
-      setShifts((prevShifts) =>
-        prevShifts.map((shift) => {
-          const found = selectChoices.find(
-            (choice) => choice.shift_id === shift.id
-          );
-          if (!found) return shift;
+    checkActionNumber(async () => {
+      try {
+        await DeleteEmployeeFromShift(selectChoices);
+        setShifts((prevShifts) =>
+          prevShifts.map((shift) => {
+            const found = selectChoices.find(
+              (choice) => choice.shift_id === shift.id
+            );
+            if (!found) return shift;
 
-          return {
-            ...shift,
-            employees: shift.employees.filter(
-              (emp) => !found.employees.includes(emp.id)
-            ),
-          };
-        })
-      );
+            return {
+              ...shift,
+              employees: shift.employees.filter(
+                (emp) => !found.employees.includes(emp.id)
+              ),
+            };
+          })
+        );
 
-      alert(`employees removed successfully`);
-      setSelectMode(false);
-    } catch (error) {
-      alert(
-        `Failed to remove employees,
+        alert(`employees removed successfully`);
+        setSelectMode(false);
+      } catch (error) {
+        alert(
+          `Failed to remove employees,
         ${error}
       `
-      );
-    }
+        );
+      }
+    });
   };
 
   const getAllShifts = async () => {
