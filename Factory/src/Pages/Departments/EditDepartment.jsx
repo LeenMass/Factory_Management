@@ -103,7 +103,7 @@ const EditDepartment = () => {
   return (
     <div>
       EditDepartment
-      <form onSubmit={updateData}>
+      <form>
         Department Name:{" "}
         <input
           name="name"
