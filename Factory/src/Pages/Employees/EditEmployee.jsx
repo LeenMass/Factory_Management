@@ -59,7 +59,7 @@ const EditEmployee = () => {
     setDate({ ...choiceDate, [name]: value });
   };
 
-  const updateData = async (e) => {
+  const updateEmploye = async (e) => {
     e.preventDefault();
     checkActionNumber(async () => {
       try {
@@ -82,19 +82,18 @@ const EditEmployee = () => {
       `Are you sure you want to delete ${employee.first_name} ${employee.last_name}?`
     );
     if (!isConfirmed) return;
-    checkActionNumber(async () => {
-      try {
-        await DeleteEmployee(id);
-        alert(
-          `Successfully removed ${employee.first_name} ${employee.last_name}'s record.`
-        );
-        navigate("/Employees");
-      } catch (error) {
-        alert(
-          `Failed to delete ${employee.first_name} ${employee.last_name}'s record!`
-        );
-      }
-    });
+
+    try {
+      await DeleteEmployee(id);
+      alert(
+        `Successfully removed ${employee.first_name} ${employee.last_name}'s record.`
+      );
+      navigate("/Employees");
+    } catch (error) {
+      alert(
+        `Failed to delete ${employee.first_name} ${employee.last_name}'s record!`
+      );
+    }
   };
   const addEmployeeToShift = async () => {
     try {
@@ -127,7 +126,7 @@ const EditEmployee = () => {
 
   return (
     <>
-      <form onSubmit={updateData}>
+      <form>
         First Name:{" "}
         <input
           name="first_name"
@@ -148,6 +147,7 @@ const EditEmployee = () => {
         <button
           type="submit"
           style={{ marginRight: "30px", border: "2px solid black" }}
+          onClick={updateEmploye}
         >
           {" "}
           Update
