@@ -3,13 +3,14 @@ import Modal from "react-modal";
 import EmployeesDropdown from "./EmployeesDropdown";
 import { getemployees } from "../Pages/Employees/employeesUtils";
 import { addEmployeesToShift } from "../Pages/Shifts/shiftsUtils";
+import useAction from "../Pages/Users/Action";
 
 Modal.setAppElement("#root");
 
 const PopUp = (props) => {
   const [employeesList, setEmployeesList] = useState([]);
   const [emp, setEmp] = useState([]);
-
+  const { checkActionNumber } = useAction();
   const getEmployeesList = async () => {
     const { data: employees } = await getemployees();
 
@@ -25,43 +26,45 @@ const PopUp = (props) => {
   };
 
   const addEmpToShift = async () => {
-    try {
-      await addEmployeesToShift(emp);
-      const newlyAddedEmployees = employeesList.filter((e) =>
-        emp.employees.includes(e.id.toString())
-      );
+    checkActionNumber(async () => {
+      try {
+        await addEmployeesToShift(emp);
+        const newlyAddedEmployees = employeesList.filter((e) =>
+          emp.employees.includes(e.id.toString())
+        );
 
-      const mergedEmployees = [
-        ...props.eData,
-        ...newlyAddedEmployees
-          .filter(
-            (newEmp) =>
-              !props.eData.some((existingEmp) => existingEmp.id === newEmp.id)
-          )
-          .map((e) => {
-            return { id: e.id, name: e.first_name + " " + e.last_name };
-          }),
-      ];
-      props.update((prevShifts) =>
-        prevShifts.map((shift) => {
-          if (shift.id === emp.shift_id) {
-            return {
-              ...shift,
-              employees: mergedEmployees,
-            };
-          }
-          return shift;
-        })
-      );
+        const mergedEmployees = [
+          ...props.eData,
+          ...newlyAddedEmployees
+            .filter(
+              (newEmp) =>
+                !props.eData.some((existingEmp) => existingEmp.id === newEmp.id)
+            )
+            .map((e) => {
+              return { id: e.id, name: e.first_name + " " + e.last_name };
+            }),
+        ];
+        props.update((prevShifts) =>
+          prevShifts.map((shift) => {
+            if (shift.id === emp.shift_id) {
+              return {
+                ...shift,
+                employees: mergedEmployees,
+              };
+            }
+            return shift;
+          })
+        );
 
-      alert(` employees added successfully`);
-    } catch (error) {
-      alert(
-        `Failed to add employees to This Shift,
+        alert(` employees added successfully`);
+      } catch (error) {
+        alert(
+          `Failed to add employees to This Shift,
         ${error}
       `
-      );
-    }
+        );
+      }
+    });
   };
 
   useEffect(() => {
