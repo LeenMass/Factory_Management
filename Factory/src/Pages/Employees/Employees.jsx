@@ -49,7 +49,7 @@ const Employees = () => {
           (emp) => emp.Department.id == selectedEmp.department_id
         );
 
-  const NavigateToAddEmployee = async () => {
+  const NavigateToAddEmployeePage = async () => {
     navigate("/AddEmployee");
   };
 
@@ -66,7 +66,7 @@ const Employees = () => {
       />
       <Table columns={columns} source={employeesData} op1={"case1"} />
       <br />
-      <button onClick={NavigateToAddEmployee}>New Employee</button>
+      <button onClick={NavigateToAddEmployeePage}>New Employee</button>
     </div>
   );
 };
