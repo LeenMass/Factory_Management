@@ -3,7 +3,7 @@ import EmployeesDropdown from "../../Components/EmployeesDropdown";
 import { useNavigate } from "react-router-dom";
 import { addDepartment } from "./departmentsUtils";
 import { getemployees } from "../Employees/employeesUtils";
-import { countOfUserActions } from "../Users/usersUtils";
+import useAction from "../Users/Action";
 
 const AddDepartment = () => {
   const [departmentData, setDepartmentData] = useState({
@@ -13,7 +13,7 @@ const AddDepartment = () => {
   const [employeesList, setEmployeesList] = useState([]);
 
   const navigate = useNavigate();
-
+  const { checkActionNumber } = useAction();
   const getEmployeesList = async () => {
     const { data: employees } = await getemployees();
     setEmployeesList(employees);
@@ -26,14 +26,15 @@ const AddDepartment = () => {
 
   const saveDepartment = async (e) => {
     e.preventDefault();
-    try {
-      await addDepartment(departmentData);
-      alert(`${departmentData.name} Department added successfully`);
-    } catch (error) {
-      if (error.response?.status === 403) {
-        alert(error.response.data.message);
+    checkActionNumber(async () => {
+      try {
+        await addDepartment(departmentData);
+        alert(`${departmentData.name} Department added successfully`);
+        navigate("/Departments");
+      } catch (error) {
+        alert(error);
       }
-    }
+    });
   };
 
   const cancelBtn = (e) => {
@@ -46,25 +47,23 @@ const AddDepartment = () => {
   }, []);
 
   return (
-    <div>
-      <form>
-        <section>Add New Department</section>
-        Department Name:
-        <input type="text" name="name" onChange={handelSubmit} />
-        <EmployeesDropdown
-          select={handelSubmit}
-          selected={departmentData.manager}
-          data={employeesList}
-          name="manager"
-          isMultiple={false}
-          choice={"select manager"}
-        />
-        <button type="submit" onClick={saveDepartment}>
-          Save
-        </button>
-        <button onClick={cancelBtn}>Cancel</button>
-      </form>
-    </div>
+    <form>
+      <section>Add New Department</section>
+      Department Name:
+      <input type="text" name="name" onChange={handelSubmit} />
+      <EmployeesDropdown
+        select={handelSubmit}
+        selected={departmentData.manager}
+        data={employeesList}
+        name="manager"
+        isMultiple={false}
+        choice={"select manager"}
+      />
+      <button type="submit" onClick={saveDepartment}>
+        Save
+      </button>
+      <button onClick={cancelBtn}>Cancel</button>
+    </form>
   );
 };
 
