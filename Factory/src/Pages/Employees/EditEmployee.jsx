@@ -36,12 +36,14 @@ const EditEmployee = () => {
   };
 
   const fetchEmployeeData = async () => {
-    const { data } = await getEmployeeById(id);
-    setEmployee(data);
-    setNewData({
-      first_name: data.first_name || "",
-      last_name: data.last_name || "",
-      department_id: data.department_id || "",
+    checkActionNumber(async () => {
+      const { data } = await getEmployeeById(id);
+      setEmployee(data);
+      setNewData({
+        first_name: data.first_name || "",
+        last_name: data.last_name || "",
+        department_id: data.department_id || "",
+      });
     });
   };
   const handleChange = (e) => {
