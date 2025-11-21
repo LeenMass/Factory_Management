@@ -75,19 +75,21 @@ const EditDepartment = () => {
   };
 
   const assignEmployeesToDepartment = async () => {
-    try {
-      await Promise.all(
-        selectedEmployees?.map(async (empId) => {
-          await axios.put(`http://localhost:4000/employees/${empId}`, {
-            department_id: id,
-          });
-        })
-      );
-      alert("Employees successfully moved to this department.");
-      navigate("/Departments");
-    } catch (error) {
-      alert("Failed to assign employees. Please try again.");
-    }
+    checkActionNumber(async () => {
+      try {
+        await Promise.all(
+          selectedEmployees?.map(async (empId) => {
+            await axios.put(`http://localhost:4000/employees/${empId}`, {
+              department_id: id,
+            });
+          })
+        );
+        alert("Employees successfully moved to this department.");
+        navigate("/Departments");
+      } catch (error) {
+        alert("Failed to assign employees. Please try again.");
+      }
+    });
   };
 
   useEffect(() => {
