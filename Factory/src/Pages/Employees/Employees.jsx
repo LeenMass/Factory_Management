@@ -3,8 +3,6 @@ import Table from "../../Components/Table";
 import { useNavigate } from "react-router-dom";
 import DepartmentsDropdown from "../../Components/DepartmentsDropdown";
 import { getemployees } from "./employeesUtils";
-import axios from "axios";
-import { countOfUserActions } from "../Users/usersUtils";
 
 const Employees = () => {
   const [selectedEmp, setSelectedEmp] = useState("");
@@ -52,7 +50,6 @@ const Employees = () => {
         );
 
   const NavigateToAddEmployee = async () => {
-    await countOfUserActions(navigate);
     navigate("/AddEmployee");
   };
 
