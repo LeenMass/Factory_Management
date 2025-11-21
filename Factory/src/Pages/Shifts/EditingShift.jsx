@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getShiftById, UpdateShiftDetails } from "./shiftsUtils";
+import useAction from "../Users/Action";
 
 function EditingShift() {
   const [shiftNewData, setNewShiftData] = useState({
@@ -11,7 +12,7 @@ function EditingShift() {
 
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const { checkActionNumber } = useAction();
   const getShift = async () => {
     const { data: shift } = await getShiftById(id);
     setNewShiftData({
@@ -28,12 +29,14 @@ function EditingShift() {
 
   const updateShiftData = async (e) => {
     e.preventDefault();
-    try {
-      await UpdateShiftDetails(id, shiftNewData);
-      navigate("/Shifts");
-    } catch (error) {
-      alert(`Failed to update, Please try again."`);
-    }
+    checkActionNumber(async () => {
+      try {
+        await UpdateShiftDetails(id, shiftNewData);
+        navigate("/Shifts");
+      } catch (error) {
+        alert(`Failed to update shift data, Please try again."`);
+      }
+    });
   };
 
   useEffect(() => {
