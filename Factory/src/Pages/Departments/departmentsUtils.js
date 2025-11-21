@@ -40,7 +40,7 @@ const addDepartment = (obj) => {
         alert(`Failed to add Department ,${error}`);
     }
 };
-const DeleteDepartment = (id) => {
+const deleteDepartment = (id) => {
     try {
         return axios.delete(`${departmentsUrl}/${id}`, {
             withCredentials: true
@@ -50,4 +50,4 @@ const DeleteDepartment = (id) => {
         alert("Failed to delete this department, Please try again.");
     }
 };
-export { getDepartments, getDepartmentById, updateDepartmentData, addDepartment, DeleteDepartment }
+export { getDepartments, getDepartmentById, updateDepartmentData, addDepartment, deleteDepartment }

@@ -14,6 +14,7 @@ const AddDepartment = () => {
 
   const navigate = useNavigate();
   const { checkActionNumber } = useAction();
+
   const getEmployeesList = async () => {
     const { data: employees } = await getemployees();
     setEmployeesList(employees);
@@ -24,7 +25,7 @@ const AddDepartment = () => {
     setDepartmentData({ ...departmentData, [name]: value });
   };
 
-  const saveDepartment = async (e) => {
+  const addNewDepartment = async (e) => {
     e.preventDefault();
     checkActionNumber(async () => {
       try {
@@ -59,7 +60,7 @@ const AddDepartment = () => {
         isMultiple={false}
         choice={"select manager"}
       />
-      <button type="submit" onClick={saveDepartment}>
+      <button type="submit" onClick={addNewDepartment}>
         Save
       </button>
       <button onClick={cancelBtn}>Cancel</button>

@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EmployeesDropdown from "../../Components/EmployeesDropdown";
 import {
-  DeleteDepartment,
+  deleteDepartment,
   getDepartmentById,
   updateDepartmentData,
 } from "./departmentsUtils";
 import { getemployees } from "../Employees/employeesUtils";
+import useAction from "../Users/Action";
 
 const EditDepartment = () => {
   const [department, setDepartmentData] = useState(null);
@@ -23,6 +24,7 @@ const EditDepartment = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
+  const { checkActionNumber } = useAction();
 
   const getEmployeesList = async () => {
     const { data } = await getemployees();
@@ -35,7 +37,7 @@ const EditDepartment = () => {
     setDepartmentData(data);
     setUpdateDepartmentData({
       name: data?.name || "",
-      manager: data?. anager || "",
+      manager: data?.anager || "",
     });
   };
 
@@ -44,24 +46,26 @@ const EditDepartment = () => {
     setUpdateDepartmentData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const updateData = async (e) => {
+  const updateDepartmentDetails = async (e) => {
     e.preventDefault();
-    try {
-      await updateDepartmentData(id, updateDepartment);
-      navigate("/Departments");
-    } catch (error) {
-      alert(`Failed to update, Please try again."`);
-    }
+    checkActionNumber(async () => {
+      try {
+        await updateDepartmentData(id, updateDepartment);
+        navigate("/Departments");
+      } catch (error) {
+        alert(`Failed to update, Please try again."`);
+      }
+    });
   };
 
-  const deleteData = async (e) => {
+  const removeDepartment = async (e) => {
     e.preventDefault();
     const isConfirmed = window.confirm(
       `Are you sure you want to delete ${department.name} Department ?`
     );
     if (!isConfirmed) return;
     try {
-      await DeleteDepartment(id);
+      await deleteDepartment(id);
       navigate("/Departments");
     } catch (err) {
       alert(`Failed to delete This Department, Please try again."`);
@@ -112,11 +116,11 @@ const EditDepartment = () => {
           placeholder={"Select A Manager"}
         />
         Add New Employe to this Department{" "}
-        <button type="button" onClick={deleteData}>
+        <button type="button" onClick={removeDepartment}>
           Delete Department
         </button>{" "}
         <button onClick={() => navigate("/Departments")}>Cancel</button>
-        <button type="submit" onClick={updateData}>
+        <button type="submit" onClick={updateDepartmentDetails}>
           Edit
         </button>
       </form>{" "}
