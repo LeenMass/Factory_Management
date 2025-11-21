@@ -119,7 +119,6 @@ const EditDepartment = () => {
           name={"manager"}
           placeholder={"Select A Manager"}
         />
-        Add New Employe to this Department{" "}
         <button type="button" onClick={removeDepartment}>
           Delete Department
         </button>{" "}
@@ -128,6 +127,7 @@ const EditDepartment = () => {
           Edit
         </button>
       </form>{" "}
+      Add New Employe to this Department{" "}
       <EmployeesDropdown
         select={(e) => setSelectedEmployees(e.target.value)}
         choice={"Employees"}
