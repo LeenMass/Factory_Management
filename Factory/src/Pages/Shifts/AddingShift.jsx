@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import EmployeesDropdown from "../../Components/EmployeesDropdown";
 import { addNewShift } from "./shiftsUtils";
 import { getemployees } from "../Employees/employeesUtils";
+import useAction from "../Users/Action";
+import { useNavigate } from "react-router-dom";
 
 const AddingShift = () => {
   const [newShift, setNewShift] = useState({
@@ -11,6 +13,8 @@ const AddingShift = () => {
     employees: [],
   });
   const [employeesList, setEmployeesList] = useState([]);
+  const navigate = useNavigate();
+  const { checkActionNumber } = useAction();
 
   const getEmployeesList = async () => {
     const { data } = await getemployees();
@@ -22,23 +26,25 @@ const AddingShift = () => {
     setNewShift({ ...newShift, [name]: value });
   };
 
-  const saveShift = async (e) => {
+  const addShift = async (e) => {
     e.preventDefault();
-    try {
-      await addNewShift(newShift);
-      alert(` The Shift added successfully`);
-      setNewShift({
-        date: "",
-        starting_hour: "",
-        ending_hour: "",
-      });
-    } catch (error) {
-      alert(
-        `Failed to add This Shift,
+    checkActionNumber(async () => {
+      try {
+        await addNewShift(newShift);
+        alert(` The Shift added successfully`);
+        setNewShift({
+          date: "",
+          starting_hour: "",
+          ending_hour: "",
+        });
+      } catch (error) {
+        alert(
+          `Failed to add This Shift,
         ${error}
       `
-      );
-    }
+        );
+      }
+    });
   };
   useEffect(() => {
     getEmployeesList();
@@ -72,10 +78,10 @@ const AddingShift = () => {
           isMultiple={true}
         />
 
-        <button type="submit" onClick={saveShift}>
-          Save Shift
+        <button type="submit" onClick={addShift}>
+          add Shift
         </button>
-        <button>Cancel</button>
+        <button onClick={() => navigate("/Shifts")}>Cancel</button>
       </form>
     </div>
   );
