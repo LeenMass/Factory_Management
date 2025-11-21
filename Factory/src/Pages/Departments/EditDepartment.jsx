@@ -64,12 +64,14 @@ const EditDepartment = () => {
       `Are you sure you want to delete ${department.name} Department ?`
     );
     if (!isConfirmed) return;
-    try {
-      await deleteDepartment(id);
-      navigate("/Departments");
-    } catch (err) {
-      alert(`Failed to delete This Department, Please try again."`);
-    }
+    checkActionNumber(async () => {
+      try {
+        await deleteDepartment(id);
+        navigate("/Departments");
+      } catch (err) {
+        alert(`Failed to delete This Department, Please try again."`);
+      }
+    });
   };
 
   const assignEmployeesToDepartment = async () => {
