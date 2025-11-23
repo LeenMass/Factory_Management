@@ -7,12 +7,12 @@ export default function Users() {
 
   const getUsersData = async () => {
     const { data } = await getUsers();
-    setUsers([...data, { allowed: 0 }]);
+    setUsers(data);
   };
   const columns = [
     { title: "Name", dataIndex: "full_name" },
     { title: "num_of_action", dataIndex: "num_of_action" },
-    { title: "actionAllowed", dataIndex: "allowed" },
+    { title: "actionAllowed", dataIndex: "actionAllowed" },
   ];
 
   useEffect(() => {
