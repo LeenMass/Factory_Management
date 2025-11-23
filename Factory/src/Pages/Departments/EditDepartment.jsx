@@ -33,11 +33,13 @@ const EditDepartment = () => {
   };
 
   const getDepartmentData = async () => {
-    const { data } = await getDepartmentById(id);
-    setDepartmentData(data);
-    setUpdateDepartmentData({
-      name: data?.name || "",
-      manager: data?.anager || "",
+    checkActionNumber(async () => {
+      const { data } = await getDepartmentById(id);
+      setDepartmentData(data);
+      setUpdateDepartmentData({
+        name: data?.name || "",
+        manager: data?.manager || "",
+      });
     });
   };
 

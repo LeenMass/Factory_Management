@@ -96,7 +96,7 @@ const Shifts = () => {
       <button onClick={() => setSelectMode(true)}>Select</button>
       {selectMode && (
         <>
-          <button onClick={deleteEmployeesFromShifts}>Delete</button>
+          <button onClick={deleteEmployeesFromShifts}>Delete Employees</button>
           <button onClick={() => setSelectMode(false)}> Cancel</button>
         </>
       )}
