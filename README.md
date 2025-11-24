@@ -50,9 +50,22 @@ Make sure the backend server is running to use all features.
 ---
 ## Features
 
-- Manage employees, departments, and shift assignments
-- Secure authentication using JWT
-- Track daily user activities
+- **Manage Employees**: Add, edit, assign employees to shifts, and delete employee profiles.
+
+- **Manage Departments**: Add, edit, and delete departments; allocate employees to departments.
+
+- **Manage Shifts**: View all shifts, add and edit shifts, remove employees from shifts, and assign employees to shifts.
+
+- **Secure Authentication**: JWT-based login system for secure access.
+
+- **Daily Activity Tracking**: Track each user's daily activity count.
+
+---
+## Skills Highlighted
+
+- React.js state management and component architecture
+- Creating reusable and clean components to avoid code duplication
+- Secure authentication implementation using JWT
 ---
 ## Future Goals
 
@@ -60,4 +73,7 @@ Make sure the backend server is running to use all features.
 - Make the interface fully responsive for all devices  
 - Add testing and automated scripts to ensure reliability  
 - Improve overall user experience and UI clarity
+
+
+
 
