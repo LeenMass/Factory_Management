@@ -33,10 +33,15 @@ The frontend should now be running at http://localhost:3000.
 ## Project Structure
 
 Factory/
+
 ├── src/
+
 │   ├── components/   # Reusable UI components
+
 │   ├── pages/        # App pages
+
 │   └── assets/       # styles
+
 └── package.json
 
 
