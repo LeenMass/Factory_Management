@@ -51,7 +51,7 @@ Factory/
 This frontend connects to the backend API repository :  
 [Factory Management API](https://github.com/LeenMass/Factory_Management_api)  
 
-Make sure the backend server is running to use all features.
+**Make sure the backend server is running to use all features.** 
 
 ---
 ## Features
