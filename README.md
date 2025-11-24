@@ -46,9 +46,8 @@ Make sure the backend server is running to use all features.
 ---
 ## Future Goals
 
-- Implement a full dashboard with visual statistics
-
-- Make the interface fully responsive
-
-- Add testing and automated scripts
+- Implement a full dashboard with visual statistics  
+- Make the interface fully responsive for all devices  
+- Add testing and automated scripts to ensure reliability  
+- Improve overall user experience and UI clarity
 
