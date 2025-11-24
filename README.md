@@ -26,9 +26,9 @@ npm install
 
 # 4. Run the development server
 npm run dev
-
-The frontend should now be running at http://localhost:3000.
 ```
+The frontend should now be running at http://localhost:3000.
+
 ---
 ## Project Structure
 
