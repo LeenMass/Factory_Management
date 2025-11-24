@@ -2,7 +2,7 @@
 
 Factory Management System Frontend is a modern web application designed to simplify and streamline factory operations.  
 It provides efficient management of employees, departments, and shift assignments, with secure access using JWT authentication.  
-The application tracks and displays each user's daily activity count before they log out.
+The application tracks and displays each user's daily activity count.
 
 ## Technologies Used
 
