@@ -7,7 +7,7 @@ import {
 import { Link } from "react-router-dom";
 import PopUp from "./PopUp";
 import { useState } from "react";
-
+import "../assets/table.css";
 const Table = (props) => {
   const [isOpenId, setIsOpenId] = useState(null);
   const tableCells = (e, data) => {
@@ -113,88 +113,93 @@ const Table = (props) => {
   };
 
   return (
-    <table border="1">
-      <thead>
-        <tr>
-          {props.columns.map((e, index) => (
-            <th key={index} style={{ width: `${100 / props.columns.length}%` }}>
-              {e.title}
-            </th>
-          ))}
-          {props.edit && (
-            <>
-              <th colSpan="2"></th>
-            </>
-          )}
-        </tr>
-      </thead>
-
-      <tbody>
-        {props.source.map((data, index) => (
-          <tr key={data.id || index}>
-            {props.columns.map((e) => (
-              <td
-                key={e.title}
+    <div className="table-container">
+      <table border="1" className="my-table">
+        <thead>
+          <tr>
+            {props.columns.map((e, index) => (
+              <th
+                key={index}
                 style={{ width: `${100 / props.columns.length}%` }}
               >
-                {tableCells(e, data)}
-              </td>
+                {e.title}
+              </th>
             ))}
-
             {props.edit && (
               <>
-                <td style={{ textAlign: "center", padding: "10px" }}>
-                  <a
-                    href={`/${props.editData}/${data.id}`}
-                    style={{ color: "#007bff" }}
-                  >
-                    <i className="fas fa-edit"></i>
-                    {props.editIcon}
-                  </a>
-                </td>
-
-                <td
-                  style={{
-                    textAlign: "center",
-                    padding: "10px",
-                    borderLeft: "1px solid #ccc",
-                  }}
-                >
-                  <div
-                    style={{
-                      color: "#28a745",
-                      cursor: "pointer",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: "5px",
-                    }}
-                    onClick={() => setIsOpenId(data.id)}
-                    title={props.addIcon}
-                  >
-                    <FontAwesomeIcon
-                      icon={faAdd}
-                      style={{ fontSize: "20px" }}
-                    />
-                    <span>{props.addIcon}</span>
-                  </div>
-
-                  {isOpenId === data.id && (
-                    <PopUp
-                      isOpen={isOpenId === data.id}
-                      onClose={() => setIsOpenId(null)}
-                      id={data.id}
-                      eData={data?.employees}
-                      update={props.update}
-                    />
-                  )}
-                </td>
+                <th colSpan="2"></th>
               </>
             )}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          {props.source.map((data, index) => (
+            <tr key={data.id || index}>
+              {props.columns.map((e) => (
+                <td
+                  key={e.title}
+                  style={{ width: `${100 / props.columns.length}%` }}
+                >
+                  {tableCells(e, data)}
+                </td>
+              ))}
+
+              {props.edit && (
+                <>
+                  <td style={{ textAlign: "center", padding: "10px" }}>
+                    <a
+                      href={`/${props.editData}/${data.id}`}
+                      style={{ color: "#007bff" }}
+                    >
+                      <i className="fas fa-edit"></i>
+                      {props.editIcon}
+                    </a>
+                  </td>
+
+                  <td
+                    style={{
+                      textAlign: "center",
+                      padding: "10px",
+                      borderLeft: "1px solid #ccc",
+                    }}
+                  >
+                    <div
+                      style={{
+                        color: "#28a745",
+                        cursor: "pointer",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "5px",
+                      }}
+                      onClick={() => setIsOpenId(data.id)}
+                      title={props.addIcon}
+                    >
+                      <FontAwesomeIcon
+                        icon={faAdd}
+                        style={{ fontSize: "20px" }}
+                      />
+                      <span>{props.addIcon}</span>
+                    </div>
+
+                    {isOpenId === data.id && (
+                      <PopUp
+                        isOpen={isOpenId === data.id}
+                        onClose={() => setIsOpenId(null)}
+                        id={data.id}
+                        eData={data?.employees}
+                        update={props.update}
+                      />
+                    )}
+                  </td>
+                </>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

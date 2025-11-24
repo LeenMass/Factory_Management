@@ -1,0 +1,25 @@
+.table-container {
+  overflow-x: auto;
+}
+
+.my-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.my-table th {
+  background-color: #5ec29b;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.my-table td {
+  padding: 13px;
+  border-bottom: 1px solid #ccc;
+}
+
+.my-table tr:hover {
+  background-color: #f3f4f6;
+}
