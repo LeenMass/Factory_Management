@@ -56,15 +56,15 @@ This frontend connects to the backend API repository :
 ---
 ## Features
 
-- **Manage Employees**: Add, edit, assign employees to shifts, and delete employee profiles.
+- **Manage Employees**: Add, edit, delete employee and register him to shift.
 
-- **Manage Departments**: Add, edit, and delete departments; allocate employees to departments.
+- **Manage Departments**: Add, edit, delete departments and adding employees to department.
 
 - **Manage Shifts**: View all shifts, add and edit shifts, remove employees from shifts, and assign employees to shifts.
 
 - **Secure Authentication**: JWT-based login system for secure access.
 
-- **Daily Activity Tracking**: Track each user's daily activity count.
+- **Manage Users**: Track each user's daily activity count.
 
 ---
 ## Skills Highlighted
