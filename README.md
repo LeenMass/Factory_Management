@@ -30,6 +30,16 @@ npm run dev
 The frontend should now be running at http://localhost:3000.
 ```
 ---
+## Project Structure
+
+Factory/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── assets
+└── package.json
+
+---
 ## Backend API
 
 This frontend connects to the backend API repository :  
