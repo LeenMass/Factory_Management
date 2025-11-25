@@ -8,6 +8,9 @@
 A modern **frontend web application** for managing **employees, departments, and shifts** in a factory, with secure JWT login and daily user activity tracking.  
 Connects to the [Factory Management Backend API](https://github.com/LeenMass/Factory_Management_api).
 
+**Note:** The frontend requires the backend server to be running.  
+Start the backend first to use all features of the application.
+
 ---
 
 ## 📖 Overview & Features
