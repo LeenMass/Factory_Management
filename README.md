@@ -15,7 +15,7 @@ Start the backend first to use all features of the application.
 
 ## 📖 Overview & Features
 
-This frontend provides:
+This Frontend provides:
 
 - User login with JWT authentication  
 - Add, edit, delete employees and departments  
@@ -35,7 +35,7 @@ This frontend provides:
 
 ## 🛠 Tech Stack
 
-React.js | JavaScript | Axios | CSS | HTML | Git / GitHub  
+React.js | JavaScript | Axios | CSS | GitHub  
 
 ---
 
