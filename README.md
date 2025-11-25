@@ -19,6 +19,7 @@ Follow these steps to set up the project locally:
 git clone https://github.com/LeenMass/Factory_Management_frontend.git
 
 # 2. Navigate to the project folder
+cd Factory_Management_frontend
 cd Factory
 
 # 3. Install dependencies
