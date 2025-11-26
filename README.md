@@ -33,14 +33,13 @@ This Frontend provides:
 
 ---
 
-## 🛠 Tech Stack
+## ⚙️ Technologies
 
 React.js | JavaScript | Axios | CSS | GitHub  
 
 ---
 
-## ⚙️ Quick Start
-
+## 🛠 Installation & Running
 ```bash
 # Clone the repository
 git clone https://github.com/LeenMass/Factory_Management_frontend.git
@@ -70,7 +69,7 @@ Factory/
 
 ---
 
-**Author:** Leen Massarwy
+👨‍💻Author: **Leen Massarwy**
 
 ## 📄 License
 
