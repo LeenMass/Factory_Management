@@ -58,16 +58,20 @@ const Employees = () => {
   }, []);
 
   return (
-    <div>
-      Employess{" "}
-      <DepartmentsDropdown
-        select={handleChange}
-        selected={selectedEmp.department_id}
-      />
+    <>
+      <h2>Employees</h2>
+      <div>
+        <DepartmentsDropdown
+          select={handleChange}
+          selected={selectedEmp.department_id}
+        />
+      </div>
+      <div>
+        <button onClick={navigateToAddEmployeePage}>New Employee</button>
+      </div>
+
       <Table columns={columns} source={employeesData} op1={"case1"} />
-      <br />
-      <button onClick={navigateToAddEmployeePage}>New Employee</button>
-    </div>
+    </>
   );
 };
 
