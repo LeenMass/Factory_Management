@@ -20,7 +20,18 @@ const ProtectedLayout = () => {
     <>
       {" "}
       <NavBar />
-      <h3>{localStorage["full_name"]}</h3>
+      <div
+        style={{
+          marginTop: "70px",
+          paddingLeft: "20px",
+          textAlign: "left",
+          fontSize: "1.6rem",
+          fontWeight: "600",
+          color: "#388e3c",
+        }}
+      >
+        <h3> Welcome again {localStorage["full_name"]}</h3>
+      </div>
       <Outlet />
     </>
   );
