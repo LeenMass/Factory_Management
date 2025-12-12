@@ -14,7 +14,7 @@ const EditEmployee = () => {
   const { id } = useParams();
   const [employee, setEmployee] = useState(null);
   const [shifts, setShifts] = useState([]);
-  const [choiceDate, setDate] = useState({ empId: id });
+  const [choiceDate, setDate] = useState({ empId: id, shiftId: "", date: "" });
   const [shiftData, setShiftData] = useState([]);
   const [reload, setReload] = useState(false);
   const [employeeUpdatedData, setNewData] = useState({
@@ -165,9 +165,8 @@ const EditEmployee = () => {
           {" "}
           Update
         </button>
-      </form>{" "}
+      </form>
       <div style={{ marginTop: "30px" }}>
-        {" "}
         <button
           onClick={deleteEmployee}
           style={{ marginRight: "30px", border: "2px solid black" }}
@@ -180,7 +179,7 @@ const EditEmployee = () => {
         >
           Cancel
         </button>
-      </div>{" "}
+      </div>
       <h6>register to new shift:</h6>
       <div style={{ marginTop: "30px" }}>
         {" "}
@@ -190,14 +189,22 @@ const EditEmployee = () => {
           <p>No shifts assigned for this employee</p>
         )}
       </div>
-      <select onChange={handelRegesterToshift} name="date">
+      <select
+        onChange={handelRegesterToshift}
+        name="date"
+        value={choiceDate.date || ""}
+      >
         <option value="">choose date</option>
         {[...new Set(shifts.map((shift) => shift.date))].map((shift) => (
           <option value={shift.date}>{shift}</option>
         ))}
       </select>
       <h3>select starting hour:</h3>
-      <select onChange={handelRegesterToshift} name="shiftId">
+      <select
+        onChange={handelRegesterToshift}
+        name="shiftId"
+        value={choiceDate.shiftId || ""}
+      >
         <option value="">select starting hour</option>
         {shiftData.map((e) => (
           <option value={e.id} key={e.id}>
