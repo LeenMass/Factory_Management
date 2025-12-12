@@ -40,11 +40,11 @@ const Table = (props) => {
         if (Array.isArray(data[e.dataIndex])) {
           return (
             <ul key={data.id}>
-              {data[e.dataIndex].map((item) => {
+              {data[e.dataIndex].map((item, index) => {
                 const values = Object.values(item).slice(1);
                 if (props.op1 === "case1") {
                   return (
-                    <li key={item.id}>
+                    <li key={item._id || item.id || index}>
                       <FontAwesomeIcon
                         icon={faCalendarAlt}
                         style={{ color: "#007bff" }}
