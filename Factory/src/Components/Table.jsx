@@ -47,7 +47,7 @@ const Table = (props) => {
                 textAlign: "center",
               }}
             >
-              {data[e.dataIndex].map((item, index) => {
+              {data[e.dataIndex].map((item) => {
                 const values = Object.values(item).slice(1);
                 if (props.op1 === "case1") {
                   return (
@@ -162,14 +162,7 @@ const Table = (props) => {
                     }}
                   >
                     <div
-                      style={{
-                        color: "#28a745",
-                        cursor: "pointer",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        gap: "5px",
-                      }}
+                      className="addIcon"
                       onClick={() => setIsOpenId(data.id)}
                       title={props.addIcon}
                     >
