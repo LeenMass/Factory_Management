@@ -21,7 +21,7 @@ const DepartmentsDropdown = (props) => {
         }
         value={props.selected}
       >
-        <option value="">select Department</option>
+        <option value="">select All Department</option>
         {departments.map((dep) => {
           return (
             <option value={dep.id} key={dep.id}>
