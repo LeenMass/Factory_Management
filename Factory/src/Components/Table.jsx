@@ -61,7 +61,7 @@ const Table = (props) => {
                   );
                 } else {
                   return (
-                    <li style={{ textAlign: "center" }} key={item.id}>
+                    <li key={item.id}>
                       {props.select ? (
                         <>
                           <span>{values}</span>
