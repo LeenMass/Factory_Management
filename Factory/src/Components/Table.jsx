@@ -135,13 +135,7 @@ const Table = (props) => {
                     </a>
                   </td>
 
-                  <td
-                    style={{
-                      textAlign: "center",
-                      padding: "10px",
-                      borderLeft: "1px solid #ccc",
-                    }}
-                  >
+                  <td>
                     <div
                       className="addIcon"
                       onClick={() => setIsOpenId(data.id)}
