@@ -23,3 +23,7 @@
 .my-table tr:hover {
   background-color: #f3f4f6;
 }
+.editCell {
+  text-align: center;
+  padding: 20px;
+}
