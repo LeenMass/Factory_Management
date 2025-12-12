@@ -6,8 +6,8 @@ const useAction = () => {
 
   const checkActionNumber = async (callback) => {
     const action_number = await countOfUserActions();
+    console.log(action_number);
     if (action_number == 0) {
-      alert("You reached your daily action limit. Logging out...");
       navigate("/");
       return null;
     }

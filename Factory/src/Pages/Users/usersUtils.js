@@ -15,11 +15,12 @@ const countOfUserActions = async () => {
         const { data } = await axios.post(`${usersUrl}/actions`, {}, {
             withCredentials: true
         });
-        return data.remainig;
+        return data.remaining;
 
     }
     catch (error) {
-        alert(`Failed to calculate actions ,${error}`);
+        alert("You reached your daily action limit. Logging out...");
+        return 0
     }
 };
 
