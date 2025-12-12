@@ -194,9 +194,11 @@ const EditEmployee = () => {
         name="date"
         value={choiceDate.date || ""}
       >
-        <option value="">choose date</option>
-        {[...new Set(shifts.map((shift) => shift.date))].map((shift) => (
-          <option value={shift.date}>{shift}</option>
+        <option value="">choose shift date</option>
+        {[...new Set(shifts.map((shift) => shift.date))].map((shift, index) => (
+          <option value={shift} key={index}>
+            {shift}
+          </option>
         ))}
       </select>
       <h3>select starting hour:</h3>
@@ -212,7 +214,7 @@ const EditEmployee = () => {
           </option>
         ))}
       </select>
-      <button onClick={addEmployeeToShift}>add</button>
+      <button onClick={addEmployeeToShift}>add shift</button>
     </>
   );
 };
