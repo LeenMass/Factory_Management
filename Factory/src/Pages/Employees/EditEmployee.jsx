@@ -16,6 +16,7 @@ const EditEmployee = () => {
   const [shifts, setShifts] = useState([]);
   const [choiceDate, setDate] = useState({ empId: id });
   const [shiftData, setShiftData] = useState([]);
+  const [reload, setReload] = useState(false);
   const [employeeUpdatedData, setNewData] = useState({
     first_name: "",
     last_name: "",
@@ -103,6 +104,10 @@ const EditEmployee = () => {
     checkActionNumber(async () => {
       try {
         await assignEmployeeToShift(choiceDate);
+
+        setReload(!reload);
+        setDate({});
+
         alert(`Employees have been successfully added to this shift.`);
       } catch (eror) {
         alert("Failed to add Employees to this Shift");
@@ -111,7 +116,7 @@ const EditEmployee = () => {
   };
   useEffect(() => {
     fetchEmployeeData();
-  }, [id]);
+  }, [id, reload]);
 
   useEffect(() => {
     getAllShifts();
@@ -195,7 +200,9 @@ const EditEmployee = () => {
       <select onChange={handelRegesterToshift} name="shiftId">
         <option value="">select starting hour</option>
         {shiftData.map((e) => (
-          <option value={e.id}>{e.starting_hour}</option>
+          <option value={e.id} key={e.id}>
+            {e.starting_hour}
+          </option>
         ))}
       </select>
       <button onClick={addEmployeeToShift}>add</button>
