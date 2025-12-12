@@ -11,7 +11,8 @@ const NavBar = () => {
       navigate(path);
     });
   };
-  const logOut = async () => {
+  const logOut = async (e) => {
+    e.preventDefault();
     try {
       await axios.post(
         "http://localhost:4000/logout",
@@ -19,7 +20,7 @@ const NavBar = () => {
         { withCredentials: true }
       );
 
-      window.location.href = "/";
+      navigate("/");
     } catch (error) {
       alert("Something went wrong while logging out. Please try again.");
     }
@@ -30,8 +31,7 @@ const NavBar = () => {
       <NavLink
         to="/Employees"
         className="nav-link"
-        onClick={(e) => {
-          e.preventDefault();
+        onClick={() => {
           handleNavClick("/Employees");
         }}
       >
@@ -40,8 +40,7 @@ const NavBar = () => {
       <NavLink
         to="/Departments"
         className="nav-link"
-        onClick={(e) => {
-          e.preventDefault();
+        onClick={() => {
           handleNavClick("/Departments");
         }}
       >
@@ -50,8 +49,7 @@ const NavBar = () => {
       <NavLink
         to="/Shifts"
         className="nav-link"
-        onClick={(e) => {
-          e.preventDefault();
+        onClick={() => {
           handleNavClick("/Shifts");
         }}
       >
@@ -60,16 +58,15 @@ const NavBar = () => {
       <NavLink
         to="/Users"
         className="nav-link"
-        onClick={(e) => {
-          e.preventDefault();
+        onClick={() => {
           handleNavClick("/Users");
         }}
       >
         Users
       </NavLink>{" "}
-      <NavLink className="nav-link" onClick={logOut} style={{ color: "black" }}>
+      <a className="nav-link" onClick={logOut} href="#">
         logout
-      </NavLink>
+      </a>
     </nav>
   );
 };
