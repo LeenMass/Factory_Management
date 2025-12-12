@@ -38,31 +38,12 @@ const Table = (props) => {
       case "list-items":
         if (Array.isArray(data[e.dataIndex])) {
           return (
-            <ul
-              key={data.id}
-              style={{
-                padding: 0,
-                margin: 0,
-                fontFamily: "sans-serif",
-                textAlign: "center",
-              }}
-            >
+            <ul key={data.id}>
               {data[e.dataIndex].map((item) => {
                 const values = Object.values(item).slice(1);
                 if (props.op1 === "case1") {
                   return (
-                    <li
-                      key={item.id}
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        padding: "8px 12px",
-                        borderBottom: "1px solid #ccc",
-                        gap: "6px",
-                        fontSize: "14px",
-                        color: "#333",
-                      }}
-                    >
+                    <li key={item.id}>
                       <FontAwesomeIcon
                         icon={faCalendarAlt}
                         style={{ color: "#007bff" }}
