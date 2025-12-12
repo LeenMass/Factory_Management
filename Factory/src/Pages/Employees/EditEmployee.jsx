@@ -180,41 +180,45 @@ const EditEmployee = () => {
           Cancel
         </button>
       </div>
-      <h6>register to new shift:</h6>
-      <div style={{ marginTop: "30px" }}>
-        {" "}
-        {employee?.shifts?.length > 0 ? (
-          <Table source={employee.shifts} columns={columns} />
-        ) : (
-          <p>No shifts assigned for this employee</p>
-        )}
-      </div>
-      <select
-        onChange={handelRegesterToshift}
-        name="date"
-        value={choiceDate.date || ""}
-      >
-        <option value="">choose shift date</option>
-        {[...new Set(shifts.map((shift) => shift.date))].map((shift, index) => (
-          <option value={shift} key={index}>
-            {shift}
-          </option>
-        ))}
-      </select>
-      <h3>select starting hour:</h3>
-      <select
-        onChange={handelRegesterToshift}
-        name="shiftId"
-        value={choiceDate.shiftId || ""}
-      >
-        <option value="">select starting hour</option>
-        {shiftData.map((e) => (
-          <option value={e.id} key={e.id}>
-            {e.starting_hour}
-          </option>
-        ))}
-      </select>
-      <button onClick={addEmployeeToShift}>add shift</button>
+      <section>
+        <h2>register to new shift:</h2>
+        <div style={{ marginTop: "30px" }}>
+          {" "}
+          {employee?.shifts?.length > 0 ? (
+            <Table source={employee.shifts} columns={columns} />
+          ) : (
+            <p>No shifts assigned for this employee</p>
+          )}
+        </div>
+        <select
+          onChange={handelRegesterToshift}
+          name="date"
+          value={choiceDate.date || ""}
+        >
+          <option value="">choose shift date</option>
+          {[...new Set(shifts.map((shift) => shift.date))].map(
+            (shift, index) => (
+              <option value={shift} key={index}>
+                {shift}
+              </option>
+            )
+          )}
+        </select>
+        <h3>select starting hour:</h3>
+        <select
+          onChange={handelRegesterToshift}
+          name="shiftId"
+          value={choiceDate.shiftId || ""}
+        >
+          <option value="">select starting hour</option>
+          {shiftData.map((e) => (
+            <option value={e.id} key={e.id}>
+              {e.starting_hour}
+            </option>
+          ))}
+        </select>
+        <button onClick={addEmployeeToShift}>add shift</button>
+      </section>
     </>
   );
 };

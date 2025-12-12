@@ -67,9 +67,9 @@ const NavBar = () => {
       >
         Users
       </NavLink>{" "}
-      <button className="nav-link" onClick={logOut} style={{ color: "black" }}>
+      <NavLink className="nav-link" onClick={logOut} style={{ color: "black" }}>
         logout
-      </button>
+      </NavLink>
     </nav>
   );
 };

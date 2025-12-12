@@ -1,6 +1,5 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
-import axios from "axios";
 import Departments from "./Pages/Departments/Departments";
 import Employees from "./Pages/Employees/Employees";
 import AddEmployee from "./Pages/Employees/AddEmployee";
