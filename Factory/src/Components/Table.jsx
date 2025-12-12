@@ -147,11 +147,8 @@ const Table = (props) => {
 
               {props.edit && (
                 <>
-                  <td style={{ textAlign: "center", padding: "20px" }}>
-                    <a
-                      href={`/${props.editData}/${data.id}`}
-                      style={{ color: "#007bff" }}
-                    >
+                  <td className="editCell">
+                    <a href={`/${props.editData}/${data.id}`}>
                       <i className="fas fa-edit"></i>
                       {props.editIcon}
                     </a>
