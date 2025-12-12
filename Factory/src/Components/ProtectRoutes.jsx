@@ -7,10 +7,8 @@ const ProtectedLayout = () => {
   const [isAuth, setIsAuth] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/auth", { withCredentials: true })
-      .then(() => setIsAuth(true))
-      .catch(() => setIsAuth(false));
+    const token = localStorage.getItem("token");
+    setIsAuth(!!token);
   }, []);
 
   if (isAuth === null) return <div>Loading...</div>;
@@ -20,7 +18,10 @@ const ProtectedLayout = () => {
     <>
       {" "}
       <NavBar />
-      <h3>{localStorage["full_name"]}</h3>
+      <div style={{ textAlign: "center", float: "left", margin: "30pء" }}>
+        {" "}
+        <h3>{localStorage["full_name"]}</h3>
+      </div>
       <Outlet />
     </>
   );

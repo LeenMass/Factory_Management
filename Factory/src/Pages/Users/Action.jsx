@@ -6,7 +6,6 @@ const useAction = () => {
 
   const checkActionNumber = async (callback) => {
     const action_number = await countOfUserActions();
-    console.log(action_number);
     if (action_number == 0) {
       navigate("/");
       return null;
