@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import PopUp from "./PopUp";
 import { useState } from "react";
 import "../assets/table.css";
+
 const Table = (props) => {
   const [isOpenId, setIsOpenId] = useState(null);
   const tableCells = (e, data) => {
@@ -141,10 +142,7 @@ const Table = (props) => {
                       onClick={() => setIsOpenId(data.id)}
                       title={props.addIcon}
                     >
-                      <FontAwesomeIcon
-                        icon={faAdd}
-                        style={{ fontSize: "20px" }}
-                      />
+                      <FontAwesomeIcon icon={faAdd} />
                       <span>{props.addIcon}</span>
                     </div>
 
