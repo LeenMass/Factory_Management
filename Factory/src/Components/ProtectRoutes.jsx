@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import axios from "axios";
 import NavBar from "./NavBar";
 
 const ProtectedLayout = () => {
