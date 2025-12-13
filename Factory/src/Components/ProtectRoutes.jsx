@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
+import axios from "axios";
 
 const ProtectedLayout = () => {
   const [isAuth, setIsAuth] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsAuth(!!token);
+    axios
+      .get("http://localhost:4000/employees", {
+        withCredentials: true,
+      })
+      .then(() => setIsAuth(true))
+      .catch(() => setIsAuth(false));
   }, []);
 
   if (isAuth === null) return <div>Loading...</div>;

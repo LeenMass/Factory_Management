@@ -1,5 +1,6 @@
 import axios from "axios";
 const usersUrl = "http://localhost:4000/users";
+
 const getUsers = () => {
     try {
         return axios.get(usersUrl, {
@@ -19,7 +20,7 @@ const countOfUserActions = async () => {
 
     }
     catch (error) {
-        alert("You reached your daily action limit. Logging out...");
+        alert("You reached your daily action limit. Logging out");
         return 0
     }
 };

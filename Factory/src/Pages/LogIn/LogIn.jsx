@@ -22,15 +22,17 @@ export default function LogIn() {
           withCredentials: true,
         }
       );
-      localStorage["full_name"] = data.full_name;
-      navigate("/Employees");
+      if (data.message == "Login successful") {
+        navigate("/Employees");
+        localStorage["full_name"] = data.full_name;
+      }
     } catch (error) {
       alert("User not found");
     }
   };
   return (
     <div className="login-container">
-      <form className="login-form" onSubmit={logInBtn}>
+      <form className="login-form">
         <h2>Log In</h2>
 
         <label>Username</label>
@@ -49,7 +51,9 @@ export default function LogIn() {
           placeholder="Enter email"
         />
 
-        <button type="submit">Log In</button>
+        <button type="submit" onClick={logInBtn}>
+          Log In
+        </button>
       </form>
     </div>
   );
